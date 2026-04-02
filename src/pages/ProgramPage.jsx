@@ -352,7 +352,7 @@ export default function ProgramPage() {
                   <p style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '0.85rem', color: TEXT_MUTED, marginBottom: '1.5rem' }}>
                     {tier.size}
                   </p>
-                  <span style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 700, fontSize: '2.25rem', letterSpacing: '-2px', color: TEXT_PRIMARY, lineHeight: 1, display: 'block', marginBottom: '0.25rem' }}>
+                  <span style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 700, fontSize: '2.25rem', letterSpacing: '-2px', color: '#F5F0EB', lineHeight: 1, display: 'block', marginBottom: '0.25rem' }}>
                     {tier.price}
                   </span>
                   <p style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '0.85rem', color: TEXT_MUTED, marginBottom: '1.75rem' }}>

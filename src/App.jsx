@@ -1,14 +1,30 @@
-import { Routes, Route } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, ScrollRestoration, Outlet } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import AboutPage from './pages/AboutPage'
 import ProgramPage from './pages/ProgramPage'
 
-export default function App() {
+function RootLayout() {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/about" element={<AboutPage />} />
-      <Route path="/program" element={<ProgramPage />} />
-    </Routes>
+    <>
+      <ScrollRestoration />
+      <Outlet />
+    </>
   )
+}
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <RootLayout />,
+    children: [
+      { index: true, element: <HomePage /> },
+      { path: 'about', element: <AboutPage /> },
+      { path: 'program', element: <ProgramPage /> },
+      { path: '*', element: <HomePage /> },
+    ],
+  },
+])
+
+export default function App() {
+  return <RouterProvider router={router} />
 }

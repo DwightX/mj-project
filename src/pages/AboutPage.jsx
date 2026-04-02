@@ -87,14 +87,96 @@ const clarityOutcomes = [
   'Drive faster, more consistent results',
 ]
 
-const credentials = [
-  { label: 'Education', value: 'Master\'s in Management & Leadership (MSML)' },
-  { label: 'Recognition', value: 'Marquis Who\'s Who Listee' },
-  { label: 'Certifications', value: 'Developing Leadership Presence — LinkedIn Learning' },
-  { label: '', value: 'Foundations of Leadership — Hone' },
-  { label: '', value: 'Developing Yourself and Others — DDI' },
-  { label: 'Awards', value: 'Multi Presidents Club Award Winning Leader' },
+const credentialColumns = [
+  {
+    label: 'Education',
+    items: ['Master\'s in Management & Leadership (MSML)'],
+  },
+  {
+    label: 'Certifications',
+    items: [
+      'Developing Leadership Presence — LinkedIn Learning',
+      'Foundations of Leadership — Hone',
+      'Developing Yourself and Others — DDI',
+    ],
+  },
+  {
+    label: 'Recognition & Awards',
+    items: [
+      'Marquis Who\'s Who Listee',
+      'Multi Presidents Club Award Winning Leader',
+    ],
+  },
 ]
+
+function CredentialsGrid() {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-20px' })
+
+  return (
+    <div ref={ref} className="grid md:grid-cols-3 mb-14">
+      {credentialColumns.map((col, i) => (
+        <motion.div
+          key={col.label}
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: i * 0.14, ease: 'easeOut' }}
+          style={{
+            borderRight: i < credentialColumns.length - 1 ? `1px solid ${BORDER_DARK}` : 'none',
+            paddingRight: i < credentialColumns.length - 1 ? '2.5rem' : '0',
+            paddingLeft: i > 0 ? '2.5rem' : '0',
+          }}
+        >
+          <p style={{ fontSize: '0.62rem', fontWeight: 800, letterSpacing: '0.2em', textTransform: 'uppercase', color: GOLD, opacity: 0.8, marginBottom: '1.25rem', paddingBottom: '0.75rem', borderBottom: `1px solid ${BORDER_DARK}` }}>
+            {col.label}
+          </p>
+          <ul className="space-y-0">
+            {col.items.map((item, j) => (
+              <motion.li
+                key={item}
+                initial={{ opacity: 0, x: -12 }}
+                animate={inView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.4, delay: i * 0.14 + j * 0.1 + 0.15, ease: 'easeOut' }}
+                className="flex items-start gap-3"
+                style={{ padding: '0.75rem 0', borderBottom: j < col.items.length - 1 ? `1px solid ${BORDER_DARK}` : 'none' }}
+              >
+                <span style={{ display: 'inline-block', width: '4px', height: '4px', borderRadius: '50%', background: GOLD, flexShrink: 0, marginTop: '8px', opacity: 0.6 }} />
+                <span style={{ fontSize: '0.88rem', fontWeight: 400, color: '#8A9AAA', lineHeight: 1.65 }}>{item}</span>
+              </motion.li>
+            ))}
+          </ul>
+        </motion.div>
+      ))}
+    </div>
+  )
+}
+
+function StatsRow() {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-20px' })
+  const stats = [
+    { value: '20+', label: 'Years in Sales' },
+    { value: '15+', label: 'Years in Leadership' },
+    { value: '100+', label: 'Leaders Coached' },
+    { value: '4x', label: 'Presidents Club' },
+  ]
+
+  return (
+    <div ref={ref} className="flex flex-wrap gap-x-12 gap-y-6" style={{ borderTop: `1px solid ${BORDER_DARK}`, paddingTop: '2rem' }}>
+      {stats.map((s, i) => (
+        <motion.div
+          key={s.label}
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.45, delay: i * 0.1, ease: 'easeOut' }}
+        >
+          <div style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 700, fontSize: '2.25rem', letterSpacing: '-2px', color: '#F5F0EB', lineHeight: 1 }}>{s.value}</div>
+          <div style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '0.9rem', color: '#8A9AAA', marginTop: '4px' }}>{s.label}</div>
+        </motion.div>
+      ))}
+    </div>
+  )
+}
 
 export default function AboutPage() {
   return (
@@ -320,37 +402,12 @@ export default function AboutPage() {
                 <span style={{ width: '1px', height: '10px', background: BORDER_DARK, display: 'inline-block' }} />
                 <span style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.25)' }}>Credentials</span>
               </div>
-
-              <div className="grid md:grid-cols-2 gap-0">
-                {credentials.map((c, i) => (
-                  <div
-                    key={i}
-                    className="flex gap-6 items-start"
-                    style={{ padding: '1.25rem 0', borderBottom: `1px solid ${BORDER_DARK}`, borderRight: i % 2 === 0 ? `1px solid ${BORDER_DARK}` : 'none', paddingRight: i % 2 === 0 ? '3rem' : '0', paddingLeft: i % 2 === 1 ? '3rem' : '0' }}
-                  >
-                    {c.label && (
-                      <span style={{ fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase', color: GOLD, minWidth: '90px', paddingTop: '2px', opacity: 0.8 }}>{c.label}</span>
-                    )}
-                    <span style={{ fontSize: '0.9rem', fontWeight: 400, color: '#8A9AAA', lineHeight: 1.6, paddingLeft: c.label ? '0' : '102px' }}>{c.value}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Stats row */}
-              <div className="flex flex-wrap gap-x-12 gap-y-6 mt-14" style={{ borderTop: `1px solid ${BORDER_DARK}`, paddingTop: '2rem' }}>
-                {[
-                  { value: '20+', label: 'Years in Sales' },
-                  { value: '15+', label: 'Years in Leadership' },
-                  { value: '100+', label: 'Leaders Coached' },
-                  { value: '4x', label: 'Presidents Club' },
-                ].map((s) => (
-                  <div key={s.label}>
-                    <div style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 700, fontSize: '2.25rem', letterSpacing: '-2px', color: '#F5F0EB', lineHeight: 1 }}>{s.value}</div>
-                    <div style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '0.9rem', color: '#8A9AAA', marginTop: '4px' }}>{s.label}</div>
-                  </div>
-                ))}
-              </div>
             </FadeSection>
+
+            <CredentialsGrid />
+
+            {/* Stats row */}
+            <StatsRow />
           </div>
         </section>
 
