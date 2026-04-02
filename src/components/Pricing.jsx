@@ -1,204 +1,106 @@
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 
-const C = {
-  blue: '#3A82FF',
-  gold: '#D4A574',
-  goldHover: '#C4915A',
-  textPrimary: '#F8FAFC',
-  textMuted: '#8895A7',
-  textDim: '#4B5568',
-}
+const GOLD = '#C8956C'
+const GOLD_LIGHT = '#A17B4F'
+const NAVY = '#0F172A'
+const DARK = '#0C1420'
+const DARK_CARD = '#111E2E'
+const TEXT_PRIMARY = '#F5F0EB'
+const TEXT_MUTED = '#8A9AAA'
+const TEXT_DIM = '#4B5568'
+const BORDER_DARK = 'rgba(255,255,255,0.07)'
 
-const INV = {
-  default: { bg: '#EEF4FF', border: '#3A82FF', text: '#0A0F1E', sub: '#1E3A6E', dim: '#4B5568' },
-  highlight: { bg: '#FDF5EC', border: '#D4A574', text: '#1A0E00', sub: '#5A3A08', dim: '#7A5A1A' },
-}
-
-const grainUrl = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E\")"
-
-const plans = [
+const teamTiers = [
   {
-    name: 'Tier 1',
-    price: '$997',
-    period: 'one-time',
-    tagline: 'Everything you need to start leading differently.',
-    summary: 'Best for emerging leaders building their foundation. You get the full curriculum, group coaching, and a community of peers — everything to start leading with real intention.',
-    highlight: false,
+    name: 'Small Teams',
+    size: '5–9 participants',
+    price: '$950',
+    per: 'per person',
     features: [
-      'Full 14-week course curriculum',
-      'Lifetime access to all materials',
-      'Private community access',
-      'Weekly group coaching calls',
-      'Workbooks & frameworks library',
-      'Course completion certificate',
+      'Full program access',
+      'Aligned leadership frameworks across team',
+      'Improved consistency in management approach',
     ],
-    missing: ['1:1 coaching sessions', 'Priority support', 'Personalized action plan'],
-    cta: 'Get Started',
+    color: GOLD,
   },
   {
-    name: 'Tier 2',
-    price: '$2,497',
-    period: 'one-time',
-    tagline: 'For leaders serious about a step-change in performance.',
-    summary: 'Best for mid-level leaders who want accountability and personalised direction. Three 1:1 sessions, a custom 90-day action plan, and priority access to MJ make this the most popular choice.',
-    highlight: true,
-    badge: 'Most Popular',
+    name: 'Growth Teams',
+    size: '10–19 participants',
+    price: '$850',
+    per: 'per person',
     features: [
-      'Everything in Tier 1',
-      '3 × 1:1 coaching sessions',
-      'Personalized 90-day action plan',
-      'Priority email support',
-      'Hot seat coaching in group calls',
-      'LinkedIn profile & brand review',
-      'Alumni network lifetime access',
+      'Everything in Small Team package',
+      'Increased team alignment and performance',
+      'Ideal for developing emerging leaders at scale',
     ],
-    missing: [],
-    cta: 'Get Started',
+    color: '#3A82FF',
   },
   {
-    name: 'Tier 3',
-    price: '$4,997',
-    period: 'one-time',
-    tagline: 'White-glove support for leaders ready to operate at the top.',
-    summary: 'Best for senior leaders ready to go all-in. Eight 1:1 sessions, a full team assessment, direct Slack access to MJ, and monthly check-ins for six months — the most comprehensive path to the top.',
-    highlight: false,
+    name: 'Organizations',
+    size: '20+ participants',
+    price: 'Custom',
+    per: 'pricing',
     features: [
-      'Everything in Tier 2',
-      '8 × 1:1 coaching sessions',
-      'Custom leadership development plan',
-      'Team assessment & full report',
-      'Monthly check-ins for 6 months',
-      'Direct Slack access to MJ',
-      'VIP in-person workshop invite',
+      'Tailored rollout strategy',
+      'Scalable leadership development',
+      'Designed for long-term organizational impact',
     ],
-    missing: [],
-    cta: 'Apply Now',
+    color: '#4A7C59',
   },
 ]
 
-function PricingCard({ plan, index, inView }) {
+function Check({ color }) {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: '2px' }}>
+      <circle cx="8" cy="8" r="7" fill={`${color}20`} />
+      <path d="M5 8l2.5 2.5L11 5.5" stroke={color} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function TierCard({ tier, index, inView, last }) {
   const [hovered, setHovered] = useState(false)
-  const inv = plan.highlight ? INV.highlight : INV.default
-
-  const borderColor = hovered ? inv.border : (plan.highlight ? 'rgba(212,165,116,0.4)' : 'rgba(255,255,255,0.08)')
-  const taglineColor = hovered ? inv.dim : C.textDim
-  const priceColor = hovered ? inv.text : (plan.highlight ? C.gold : C.textPrimary)
-  const periodColor = hovered ? inv.dim : C.textDim
-  const featureColor = hovered ? inv.sub : C.textMuted
-  const missingColor = hovered ? inv.dim : C.textDim
-  const dividerColor = hovered ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.08)'
-  const badgeBg = hovered ? (plan.highlight ? C.gold : C.blue) : (plan.highlight ? C.gold : C.blue)
-  const badgeText = hovered ? (plan.highlight ? '#0F172A' : '#fff') : '#fff'
-  const ctaBg = hovered ? (plan.highlight ? C.gold : C.blue) : (plan.highlight ? C.gold : 'transparent')
-  const ctaColor = hovered ? (plan.highlight ? '#0F172A' : '#fff') : (plan.highlight ? '#0F172A' : C.blue)
-  const ctaBorder = (!hovered && !plan.highlight) ? `1.5px solid rgba(58,130,255,0.35)` : 'none'
-  const checkFill = hovered ? (plan.highlight ? 'rgba(212,165,116,0.25)' : 'rgba(58,130,255,0.2)') : 'rgba(58,130,255,0.15)'
-  const checkStroke = hovered ? (plan.highlight ? C.gold : C.blue) : C.blue
-  const xFill = hovered ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.03)'
-  const xStroke = hovered ? 'rgba(0,0,0,0.2)' : 'rgba(255,255,255,0.15)'
-  const nameColor = hovered ? (plan.highlight ? C.gold : C.blue) : (plan.highlight ? C.gold : C.blue)
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="relative rounded-2xl overflow-hidden"
-      style={{
-        backgroundImage: grainUrl,
-        backgroundColor: hovered ? inv.bg : (plan.highlight ? '#1E2D45' : '#1F2937'),
-        border: `1px solid ${borderColor}`,
-        transform: plan.highlight ? 'scale(1.03)' : 'scale(1)',
-        boxShadow: hovered
-          ? (plan.highlight ? '0 20px 56px rgba(212,165,116,0.14)' : '0 20px 56px rgba(58,130,255,0.1)')
-          : (plan.highlight ? '0 0 40px rgba(212,165,116,0.06)' : 'none'),
-        transition: 'background-color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease',
-        cursor: 'default',
-      }}
+      transition={{ duration: 0.5, delay: 0.2 + index * 0.08 }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      style={{
+        background: DARK_CARD,
+        borderTop: `2px solid ${hovered ? tier.color : `${tier.color}55`}`,
+        borderLeft: `1px solid ${hovered ? `${tier.color}35` : BORDER_DARK}`,
+        borderRight: last ? `1px solid ${hovered ? `${tier.color}35` : BORDER_DARK}` : 'none',
+        borderBottom: `1px solid ${hovered ? `${tier.color}35` : BORDER_DARK}`,
+        transform: hovered ? 'translateY(-5px)' : 'translateY(0)',
+        transition: 'transform 0.22s ease, border-color 0.22s ease',
+      }}
     >
-      {plan.badge && (
-        <div
-          className="absolute top-0 left-1/2 -translate-x-1/2 text-xs font-bold tracking-widest uppercase px-4 py-1 rounded-b-lg"
-          style={{ background: badgeBg, color: badgeText, transition: 'background 0.35s ease, color 0.35s ease' }}
-        >
-          {plan.badge}
-        </div>
-      )}
-
-      <div className="p-8 pt-10">
-        <p className="text-xs font-bold tracking-widest uppercase mb-1" style={{ color: nameColor, transition: 'color 0.35s ease' }}>
-          {plan.name}
+      <div className="p-8" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+        <p style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 800, fontSize: '0.7rem', color: tier.color, letterSpacing: '0.22em', textTransform: 'uppercase', marginBottom: '0.25rem' }}>
+          {tier.name}
         </p>
-        <p className="text-sm mb-2 leading-relaxed" style={{ color: taglineColor, transition: 'color 0.35s ease' }}>
-          {plan.tagline}
+        <p style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '0.85rem', color: TEXT_MUTED, marginBottom: '1.5rem' }}>
+          {tier.size}
         </p>
-
-        {/* Hover summary */}
-        <AnimatePresence>
-          {hovered && (
-            <motion.p
-              key="summary"
-              initial={{ opacity: 0, height: 0, marginBottom: 0 }}
-              animate={{ opacity: 1, height: 'auto', marginBottom: '1rem' }}
-              exit={{ opacity: 0, height: 0, marginBottom: 0 }}
-              transition={{ duration: 0.25 }}
-              className="text-sm leading-relaxed overflow-hidden"
-              style={{
-                color: plan.highlight ? INV.highlight.sub : INV.default.sub,
-                borderLeft: `2px solid ${plan.highlight ? C.gold : C.blue}`,
-                paddingLeft: '0.75rem',
-              }}
-            >
-              {plan.summary}
-            </motion.p>
-          )}
-        </AnimatePresence>
-
-        <div className="mb-8" style={{ marginTop: hovered ? '0' : '1rem', transition: 'margin 0.25s ease' }}>
-          <span style={{ fontFamily: '"Plus Jakarta Sans", sans-serif',fontWeight: 600, fontSize: '2.75rem', letterSpacing: '-1.5px', color: priceColor, transition: 'color 0.35s ease' }}>
-            {plan.price}
-          </span>
-          <span className="text-sm ml-2" style={{ color: periodColor, transition: 'color 0.35s ease' }}>
-            {plan.period}
+        <div className="flex items-baseline gap-2 mb-1">
+          <span style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 700, fontSize: '2.25rem', letterSpacing: '-2px', color: TEXT_PRIMARY, lineHeight: 1 }}>
+            {tier.price}
           </span>
         </div>
-
-        <button
-          onClick={() => document.querySelector('#booking')?.scrollIntoView({ behavior: 'smooth' })}
-          className="w-full py-3.5 font-bold text-sm cursor-pointer mb-8"
-          style={{
-            borderRadius: '6px',
-            background: ctaBg,
-            color: ctaColor,
-            border: ctaBorder,
-            transition: 'background 0.35s ease, color 0.35s ease',
-          }}
-        >
-          {plan.cta} →
-        </button>
-
-        <div style={{ borderTop: `1px solid ${dividerColor}`, paddingTop: '1.5rem', transition: 'border-color 0.35s ease' }}>
+        <p style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '0.85rem', color: TEXT_MUTED, marginBottom: '1.75rem' }}>
+          {tier.per}
+        </p>
+        <div style={{ borderTop: `1px solid ${BORDER_DARK}`, paddingTop: '1.25rem', flex: 1 }}>
           <ul className="space-y-3">
-            {plan.features.map((f) => (
-              <li key={f} className="flex items-start gap-2.5 text-sm">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: '3px' }}>
-                  <circle cx="8" cy="8" r="7" fill={checkFill} style={{ transition: 'fill 0.35s ease' }} />
-                  <path d="M5 8l2.5 2.5L11 5.5" stroke={checkStroke} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" style={{ transition: 'stroke 0.35s ease' }} />
-                </svg>
-                <span style={{ color: featureColor, transition: 'color 0.35s ease' }}>{f}</span>
-              </li>
-            ))}
-            {plan.missing.map((f) => (
-              <li key={f} className="flex items-start gap-2.5 text-sm">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: '3px' }}>
-                  <circle cx="8" cy="8" r="7" fill={xFill} style={{ transition: 'fill 0.35s ease' }} />
-                  <path d="M5.5 5.5l5 5M10.5 5.5l-5 5" stroke={xStroke} strokeWidth="1.4" strokeLinecap="round" style={{ transition: 'stroke 0.35s ease' }} />
-                </svg>
-                <span style={{ color: missingColor, transition: 'color 0.35s ease' }}>{f}</span>
+            {tier.features.map((f) => (
+              <li key={f} className="flex items-start gap-3">
+                <Check color={tier.color} />
+                <span style={{ fontSize: '0.85rem', fontWeight: 300, color: TEXT_MUTED, lineHeight: 1.5 }}>{f}</span>
               </li>
             ))}
           </ul>
@@ -210,35 +112,143 @@ function PricingCard({ plan, index, inView }) {
 
 export default function Pricing() {
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-80px' })
+  const inView = useInView(ref, { once: true, margin: '-20px' })
 
   return (
-    <section id="pricing" className="py-24" style={{ background: '#0F172A' }}>
+    <section id="pricing" className="py-36" style={{ background: DARK }}>
       <div className="max-w-8xl mx-auto px-8 md:px-16" ref={ref}>
 
+        {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="mb-14"
+          className="mb-16"
         >
-          <div className="flex items-center justify-between mb-10" style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '1.25rem' }}>
-            <span style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 700, fontSize: '0.72rem', color: C.gold, letterSpacing: '0.18em', textTransform: 'uppercase' }}>03</span>
-            <span style={{ fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: C.textDim }}>Investment</span>
+          <div className="flex items-baseline gap-4 mb-10" style={{ borderTop: `2px solid ${GOLD}`, paddingTop: '1.1rem' }}>
+            <span style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 800, fontSize: '0.75rem', color: GOLD, letterSpacing: '0.22em' }}>03</span>
+            <span style={{ width: '1px', height: '10px', background: BORDER_DARK, display: 'inline-block' }} />
+            <span style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: TEXT_DIM }}>Investment</span>
           </div>
-          <h2 style={{ fontFamily: '"Plus Jakarta Sans", sans-serif',fontWeight: 600, fontSize: 'clamp(2rem, 4vw, 3rem)', letterSpacing: '-1px', color: C.textPrimary, marginBottom: '0.5rem' }}>
+          <div style={{ width: '40px', height: '3px', background: GOLD, marginBottom: '1.25rem' }} />
+          <h2 style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 700, fontSize: 'clamp(2.4rem, 4.5vw, 3.5rem)', letterSpacing: '-2px', color: TEXT_PRIMARY, marginBottom: '0.75rem', lineHeight: 1.05 }}>
             Choose Your Path Forward
           </h2>
-          <p style={{ color: C.textMuted, maxWidth: '460px', fontSize: '1rem' }}>
-            Every plan includes full curriculum access and a 30-day money-back guarantee.
+          <p style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '1.2rem', fontWeight: 600, color: GOLD, opacity: 0.85, lineHeight: 1.5 }}>
+            Every plan includes full LIT Program access and a structured path to results.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6 items-start">
-          {plans.map((plan, i) => (
-            <PricingCard key={plan.name} plan={plan} index={i} inView={inView} />
+        {/* Individual — featured */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.55, delay: 0.1 }}
+          className="mb-4"
+          style={{
+            background: DARK_CARD,
+            borderTop: `2px solid ${GOLD}`,
+            border: `1px solid rgba(200,149,108,0.25)`,
+            borderTopWidth: '2px',
+            borderTopColor: GOLD,
+          }}
+        >
+          {/* Founder Rate badge */}
+          <div style={{ background: GOLD, display: 'inline-block', padding: '4px 16px', fontSize: '0.62rem', fontWeight: 800, letterSpacing: '0.18em', textTransform: 'uppercase', color: NAVY }}>
+            Founder Rate — Limited Availability
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-0">
+            {/* Left — price + CTA */}
+            <div className="p-8" style={{ borderRight: `1px solid ${BORDER_DARK}` }}>
+              <p style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 800, fontSize: '0.7rem', color: GOLD, letterSpacing: '0.22em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+                Individual Enrollment
+              </p>
+              <p style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '1rem', color: TEXT_MUTED, marginBottom: '1.75rem', lineHeight: 1.5 }}>
+                Full LIT Program — 10 Weeks or 5-Week Fast Track
+              </p>
+              <div className="flex items-baseline gap-3 mb-1">
+                <span style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 700, fontSize: '3.25rem', letterSpacing: '-3px', color: TEXT_PRIMARY, lineHeight: 1 }}>
+                  $1,099
+                </span>
+                <span style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontSize: '1.1rem', color: 'rgba(200,149,108,0.4)', textDecoration: 'line-through' }}>
+                  $1,499
+                </span>
+              </div>
+              <p style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '0.88rem', color: TEXT_MUTED, marginBottom: '2rem' }}>
+                per person
+              </p>
+              <Link
+                to="/program"
+                style={{
+                  display: 'inline-block',
+                  background: GOLD,
+                  color: NAVY,
+                  padding: '14px 36px',
+                  fontSize: '0.72rem',
+                  fontWeight: 800,
+                  letterSpacing: '0.14em',
+                  textTransform: 'uppercase',
+                  textDecoration: 'none',
+                  transition: 'background 0.2s ease',
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = GOLD_LIGHT)}
+                onMouseLeave={(e) => (e.currentTarget.style.background = GOLD)}
+              >
+                Enroll Now
+              </Link>
+            </div>
+
+            {/* Right — features */}
+            <div className="p-8">
+              <p style={{ fontSize: '0.62rem', fontWeight: 800, letterSpacing: '0.18em', textTransform: 'uppercase', color: TEXT_DIM, marginBottom: '1.25rem' }}>
+                What's Included
+              </p>
+              <ul className="space-y-4">
+                {[
+                  '10 outcome-driven leadership modules',
+                  '10-week program or 5-week fast track',
+                  'Proven frameworks you can apply immediately',
+                  'Real-world leadership scenarios — not theory',
+                ].map((f) => (
+                  <li key={f} className="flex items-start gap-3">
+                    <Check color={GOLD} />
+                    <span style={{ fontSize: '0.9rem', fontWeight: 300, color: TEXT_MUTED, lineHeight: 1.5 }}>{f}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Team tiers — 3 equal cards */}
+        <div className="grid md:grid-cols-3">
+          {teamTiers.map((tier, i) => (
+            <TierCard key={tier.name} tier={tier} index={i} inView={inView} last={i === teamTiers.length - 1} />
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-4"
+          style={{ borderTop: `1px solid ${BORDER_DARK}`, paddingTop: '1.5rem' }}
+        >
+          <p style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '0.95rem', color: TEXT_MUTED }}>
+            Not sure which option is right?{' '}
+            <Link to="/program" style={{ color: GOLD, textDecoration: 'underline' }}>
+              View the full program details
+            </Link>.
+          </p>
+          <button
+            onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
+            style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: GOLD, cursor: 'pointer', whiteSpace: 'nowrap' }}
+          >
+            Contact us for team pricing →
+          </button>
+        </motion.div>
+
       </div>
     </section>
   )

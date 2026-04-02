@@ -1,10 +1,33 @@
 @import "tailwindcss";
 
-* {
-  /* box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  text-align: left; */
+@theme {
+  --color-cream: #FAF7F2;
+  --color-cream-deep: #F0E9DF;
+  --color-dark: #0C1420;
+  --color-dark-card: #111E2E;
+  --color-navy: #0F172A;
+  --color-gold: #C8956C;
+  --color-gold-light: #A17B4F;
+  --color-text: #1C1510;
+  --color-text-muted: #5C4F45;
+  --color-text-dim: #9C8E85;
+
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+
+  --spacing-section: 9rem;
+
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+
+  --width-8xl: 88rem;
+  --max-width-8xl: 88rem;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
 html {
@@ -12,15 +35,21 @@ html {
 }
 
 body {
-  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
-  color: #F8FAFC;
-  background: #0F172A;
+  font-family: var(--font-sans);
+  color: #1C1510;
+  background: #FAF7F2;
   -webkit-font-smoothing: antialiased;
-  font-size: 17px;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
   line-height: 1.6;
 }
 
 #root {
   width: 100%;
   min-height: 100vh;
+}
+
+/* Section anchor offset for fixed navbar */
+section[id] {
+  scroll-margin-top: 4rem;
 }

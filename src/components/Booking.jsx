@@ -4,17 +4,17 @@ import { useInView } from 'framer-motion'
 import { useRef } from 'react'
 
 const C = {
-  bg: '#0F172A',
-  cardBg: '#1F2937',
+  bg: '#0C1420',
   blue: '#3A82FF',
-  gold: '#D4A574',
-  textPrimary: '#F8FAFC',
-  textMuted: '#8895A7',
+  gold: '#C8956C',
+  textPrimary: '#F5F0EB',
+  textMuted: '#8A9AAA',
+  textDim: '#4B5568',
 }
 
 export default function Booking() {
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-100px' })
+  const inView = useInView(ref, { once: true, margin: '-20px' })
 
   useEffect(() => {
     const script = document.createElement('script')
@@ -25,7 +25,7 @@ export default function Booking() {
   }, [])
 
   return (
-    <section id="booking" className="py-24" style={{ background: C.bg }}>
+    <section id="booking" className="py-36" style={{ background: C.bg }}>
       <div className="max-w-8xl mx-auto px-8 md:px-16" ref={ref}>
 
         <motion.div
@@ -34,15 +34,38 @@ export default function Booking() {
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
-          <div className="flex items-center justify-between mb-10" style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '1.25rem' }}>
-            <span style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 700, fontSize: '0.72rem', color: C.gold, letterSpacing: '0.18em', textTransform: 'uppercase' }}>04</span>
-            <span style={{ fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: C.textDim }}>Schedule</span>
+          {/* Section header — 2px gold top border */}
+          <div className="flex items-baseline gap-4 mb-10" style={{ borderTop: `2px solid ${C.gold}`, paddingTop: '1.1rem' }}>
+            <span style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 800, fontSize: '0.75rem', color: C.gold, letterSpacing: '0.22em' }}>04</span>
+            <span style={{ width: '1px', height: '10px', background: 'rgba(255,255,255,0.15)', display: 'inline-block' }} />
+            <span style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: C.textDim }}>Schedule</span>
           </div>
-          <h2 style={{ fontFamily: '"Plus Jakarta Sans", sans-serif',fontWeight: 600, fontSize: 'clamp(2rem, 4vw, 3rem)', letterSpacing: '-1px', color: C.textPrimary, marginBottom: '0.5rem' }}>
+
+          {/* Short amber accent bar */}
+          <div style={{ width: '40px', height: '3px', background: C.gold, marginBottom: '1.25rem' }} />
+
+          <h2 style={{
+            fontFamily: '"Plus Jakarta Sans", sans-serif',
+            fontWeight: 700,
+            fontSize: 'clamp(2.4rem, 4.5vw, 3.5rem)',
+            letterSpacing: '-2px',
+            color: C.textPrimary,
+            marginBottom: '0.75rem',
+            lineHeight: 1.05,
+          }}>
             Let's Talk About Your Leadership
           </h2>
-          <p style={{ color: C.textMuted, maxWidth: '460px', fontSize: '1rem' }}>
-            Schedule a free 30-minute strategy session. No pitch, no pressure — just a real conversation about where you are and where you want to go.
+          <p style={{
+            fontFamily: '"Playfair Display", serif',
+            fontStyle: 'italic',
+            fontSize: '1.2rem',
+            fontWeight: 600,
+            color: C.gold,
+            opacity: 0.85,
+            lineHeight: 1.5,
+            maxWidth: '520px',
+          }}>
+            No pitch, no pressure — just a real conversation about where you are and where you want to go.
           </p>
         </motion.div>
 
@@ -50,11 +73,10 @@ export default function Booking() {
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="rounded-2xl overflow-hidden"
         >
           <div
             className="calendly-inline-widget"
-            data-url="https://calendly.com/carter91jr/30min"
+            data-url="https://calendly.com/matt-leadershipintraining/30min"
             style={{ minWidth: '320px', height: '700px' }}
           />
         </motion.div>
@@ -63,14 +85,14 @@ export default function Booking() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="text-center text-sm mt-5"
-          style={{ color: C.textMuted }}
+          className="text-center mt-5"
+          style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '1rem', color: C.textMuted }}
         >
           Can't find a time? Reach out via the{' '}
           <button
             onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
             className="cursor-pointer underline transition-colors duration-150"
-            style={{ color: C.blue }}
+            style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '1rem', color: C.gold }}
           >
             contact form below
           </button>.
