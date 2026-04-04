@@ -1,17 +1,5 @@
-import { motion } from 'framer-motion'
-import { useInView } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-
-const C = {
-  bg: '#0C1420',
-  cardBg: '#111E2E',
-  border: 'rgba(255,255,255,0.07)',
-  cardBorder: 'rgba(255,255,255,0.06)',
-  gold: '#C8956C',
-  textPrimary: '#F5F0EB',
-  textMuted: '#8A9AAA',
-  textDim: '#4B5568',
-}
 
 const AVATAR = 'https://cdn.vectorstock.com/i/500p/58/15/male-silhouette-profile-picture-vector-35845815.jpg'
 
@@ -59,7 +47,7 @@ export default function Testimonials() {
   const inView = useInView(ref, { once: true, margin: '-20px' })
 
   return (
-    <section id="testimonials" className="py-36" style={{ background: C.bg }}>
+    <section id="testimonials" className="py-36 bg-dark">
       <div className="max-w-8xl mx-auto px-8 md:px-16" ref={ref}>
 
         <motion.div
@@ -68,36 +56,18 @@ export default function Testimonials() {
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          {/* Section header — 2px gold top border */}
-          <div className="flex items-baseline gap-4 mb-10" style={{ borderTop: `2px solid ${C.gold}`, paddingTop: '1.1rem' }}>
-            <span style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 800, fontSize: '0.75rem', color: C.gold, letterSpacing: '0.22em' }}>02</span>
-            <span style={{ width: '1px', height: '10px', background: C.border, display: 'inline-block' }} />
-            <span style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: C.textDim }}>Results</span>
+          <div className="flex items-baseline gap-4 mb-10" style={{ borderTop: '2px solid #C8956C', paddingTop: '1.1rem' }}>
+            <span className="section-number">02</span>
+            <span className="section-pipe" />
+            <span className="section-label">Results</span>
           </div>
 
-          {/* Short amber accent bar */}
-          <div style={{ width: '40px', height: '3px', background: C.gold, marginBottom: '1.25rem' }} />
+          <div className="divider-gold mb-5" />
 
-          <h2 style={{
-            fontFamily: '"Plus Jakarta Sans", sans-serif',
-            fontWeight: 700,
-            fontSize: 'clamp(2.4rem, 4.5vw, 3.5rem)',
-            letterSpacing: '-2px',
-            color: C.textPrimary,
-            marginBottom: '0.75rem',
-            lineHeight: 1.05,
-          }}>
+          <h2 className="heading-xl mb-3">
             Leaders Who Took the Leap
           </h2>
-          <p style={{
-            fontFamily: '"Playfair Display", serif',
-            fontStyle: 'italic',
-            fontSize: '1.2rem',
-            fontWeight: 600,
-            color: C.gold,
-            opacity: 0.85,
-            lineHeight: 1.5,
-          }}>
+          <p className="pull-quote" style={{ opacity: 0.85 }}>
             Real results from real leaders — across industries, team sizes, and career stages.
           </p>
         </motion.div>
@@ -111,48 +81,37 @@ export default function Testimonials() {
               transition={{ duration: 0.5, delay: i * 0.08 }}
               className="break-inside-avoid mb-5"
               style={{
-                background: C.cardBg,
-                border: `1px solid ${C.cardBorder}`,
-                borderTop: `2px solid rgba(200,149,108,0.2)`,
+                background: '#111E2E',
+                border: '1px solid rgba(255,255,255,0.06)',
+                borderTop: '2px solid rgba(200,149,108,0.2)',
                 padding: '1.75rem',
-                borderRadius: '0',
               }}
             >
-              {/* Playfair large serif quote mark */}
-              <div style={{
-                fontFamily: '"Playfair Display", serif',
-                fontSize: '5rem',
-                lineHeight: 0.7,
-                color: C.gold,
-                opacity: 0.3,
-                marginBottom: '0.5rem',
-                fontWeight: 700,
-                userSelect: 'none',
-              }}>
+              <div className="font-serif text-gold mb-2" style={{ fontSize: '5rem', lineHeight: 0.7, opacity: 0.3, fontWeight: 700, userSelect: 'none' }}>
                 "
               </div>
 
               <div className="flex gap-0.5 mb-3">
                 {Array.from({ length: t.stars }).map((_, s) => (
-                  <span key={s} style={{ color: C.gold, fontSize: '0.8rem' }}>★</span>
+                  <span key={s} className="text-gold" style={{ fontSize: '0.8rem' }}>★</span>
                 ))}
               </div>
 
-              <p style={{ color: C.textMuted, lineHeight: 1.8, marginBottom: '1.5rem', fontWeight: 300, fontSize: '0.9rem' }}>
+              <p className="text-muted-dark mb-6" style={{ lineHeight: 1.8, fontWeight: 300, fontSize: '0.9rem' }}>
                 {t.quote}
               </p>
 
-              <div style={{ borderTop: `1px solid ${C.cardBorder}`, paddingTop: '1rem' }}>
+              <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '1rem' }}>
                 <div className="flex items-center gap-3">
                   <img
                     src={AVATAR}
                     alt={t.name}
                     className="w-9 h-9 object-cover flex-shrink-0"
-                    style={{ border: `1px solid rgba(200,149,108,0.2)` }}
+                    style={{ border: '1px solid rgba(200,149,108,0.2)' }}
                   />
                   <div>
-                    <div style={{ fontSize: '0.8rem', fontWeight: 700, color: C.textPrimary, letterSpacing: '0.04em', textTransform: 'uppercase' }}>{t.name}</div>
-                    <div style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '0.82rem', color: C.textDim, marginTop: '1px' }}>{t.role}</div>
+                    <div className="font-sans font-bold text-cream" style={{ fontSize: '0.8rem', letterSpacing: '0.04em', textTransform: 'uppercase' }}>{t.name}</div>
+                    <div className="font-serif italic text-text-dim" style={{ fontSize: '0.82rem', marginTop: '1px' }}>{t.role}</div>
                   </div>
                 </div>
               </div>

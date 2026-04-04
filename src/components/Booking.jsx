@@ -1,16 +1,5 @@
-import { useEffect } from 'react'
-import { motion } from 'framer-motion'
-import { useInView } from 'framer-motion'
-import { useRef } from 'react'
-
-const C = {
-  bg: '#0C1420',
-  blue: '#3A82FF',
-  gold: '#C8956C',
-  textPrimary: '#F5F0EB',
-  textMuted: '#8A9AAA',
-  textDim: '#4B5568',
-}
+import { useEffect, useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 
 export default function Booking() {
   const ref = useRef(null)
@@ -25,7 +14,7 @@ export default function Booking() {
   }, [])
 
   return (
-    <section id="booking" className="py-36" style={{ background: C.bg }}>
+    <section id="booking" className="py-36 bg-dark">
       <div className="max-w-8xl mx-auto px-8 md:px-16" ref={ref}>
 
         <motion.div
@@ -34,37 +23,18 @@ export default function Booking() {
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
-          {/* Section header — 2px gold top border */}
-          <div className="flex items-baseline gap-4 mb-10" style={{ borderTop: `2px solid ${C.gold}`, paddingTop: '1.1rem' }}>
-            <span style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 800, fontSize: '0.75rem', color: C.gold, letterSpacing: '0.22em' }}>04</span>
-            <span style={{ width: '1px', height: '10px', background: 'rgba(255,255,255,0.15)', display: 'inline-block' }} />
-            <span style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: C.textDim }}>Schedule</span>
+          <div className="flex items-baseline gap-4 mb-10" style={{ borderTop: '2px solid #C8956C', paddingTop: '1.1rem' }}>
+            <span className="section-number">04</span>
+            <span className="section-pipe" />
+            <span className="section-label">Schedule</span>
           </div>
 
-          {/* Short amber accent bar */}
-          <div style={{ width: '40px', height: '3px', background: C.gold, marginBottom: '1.25rem' }} />
+          <div className="divider-gold mb-5" />
 
-          <h2 style={{
-            fontFamily: '"Plus Jakarta Sans", sans-serif',
-            fontWeight: 700,
-            fontSize: 'clamp(2.4rem, 4.5vw, 3.5rem)',
-            letterSpacing: '-2px',
-            color: C.textPrimary,
-            marginBottom: '0.75rem',
-            lineHeight: 1.05,
-          }}>
+          <h2 className="heading-xl mb-3">
             Let's Talk About Your Leadership
           </h2>
-          <p style={{
-            fontFamily: '"Playfair Display", serif',
-            fontStyle: 'italic',
-            fontSize: '1.2rem',
-            fontWeight: 600,
-            color: C.gold,
-            opacity: 0.85,
-            lineHeight: 1.5,
-            maxWidth: '520px',
-          }}>
+          <p className="pull-quote" style={{ opacity: 0.85, maxWidth: '520px' }}>
             No pitch, no pressure — just a real conversation about where you are and where you want to go.
           </p>
         </motion.div>
@@ -85,14 +55,14 @@ export default function Booking() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="text-center mt-5"
-          style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '1rem', color: C.textMuted }}
+          className="text-center mt-5 font-serif italic text-muted-dark"
+          style={{ fontSize: '1rem' }}
         >
           Can't find a time? Reach out via the{' '}
           <button
             onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-            className="cursor-pointer underline transition-colors duration-150"
-            style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '1rem', color: C.gold }}
+            className="cursor-pointer underline font-serif italic text-gold"
+            style={{ fontSize: '1rem' }}
           >
             contact form below
           </button>.

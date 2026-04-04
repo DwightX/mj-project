@@ -2,6 +2,8 @@ import { createBrowserRouter, RouterProvider, ScrollRestoration, Outlet } from '
 import HomePage from './pages/HomePage'
 import AboutPage from './pages/AboutPage'
 import ProgramPage from './pages/ProgramPage'
+import PrivacyPage from './pages/PrivacyPage'
+import TermsPage from './pages/TermsPage'
 
 function RootLayout() {
   return (
@@ -20,6 +22,8 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: 'about', element: <AboutPage /> },
       { path: 'program', element: <ProgramPage /> },
+      { path: 'privacy', element: <PrivacyPage /> },
+      { path: 'terms', element: <TermsPage /> },
       { path: '*', element: <HomePage /> },
     ],
   },

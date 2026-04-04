@@ -1,17 +1,6 @@
-import { motion } from 'framer-motion'
-import { useInView } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-
-const GOLD = '#C8956C'
-const GOLD_LIGHT = '#A17B4F'
-const NAVY = '#0F172A'
-const DARK = '#0C1420'
-const DARK_CARD = '#111E2E'
-const TEXT_PRIMARY = '#F5F0EB'
-const TEXT_MUTED = '#8A9AAA'
-const TEXT_DIM = '#4B5568'
-const BORDER_DARK = 'rgba(255,255,255,0.07)'
 
 const teamTiers = [
   {
@@ -24,7 +13,7 @@ const teamTiers = [
       'Aligned leadership frameworks across team',
       'Improved consistency in management approach',
     ],
-    color: GOLD,
+    color: '#C8956C',
   },
   {
     name: 'Growth Teams',
@@ -71,36 +60,36 @@ function TierCard({ tier, index, inView, last }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        background: DARK_CARD,
+        background: '#111E2E',
         borderTop: `2px solid ${hovered ? tier.color : `${tier.color}55`}`,
-        borderLeft: `1px solid ${hovered ? `${tier.color}35` : BORDER_DARK}`,
-        borderRight: last ? `1px solid ${hovered ? `${tier.color}35` : BORDER_DARK}` : 'none',
-        borderBottom: `1px solid ${hovered ? `${tier.color}35` : BORDER_DARK}`,
+        borderLeft: `1px solid ${hovered ? `${tier.color}35` : 'rgba(255,255,255,0.07)'}`,
+        borderRight: last ? `1px solid ${hovered ? `${tier.color}35` : 'rgba(255,255,255,0.07)'}` : 'none',
+        borderBottom: `1px solid ${hovered ? `${tier.color}35` : 'rgba(255,255,255,0.07)'}`,
         transform: hovered ? 'translateY(-5px)' : 'translateY(0)',
         transition: 'transform 0.22s ease, border-color 0.22s ease',
       }}
     >
-      <div className="p-8" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-        <p style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 800, fontSize: '0.7rem', color: tier.color, letterSpacing: '0.22em', textTransform: 'uppercase', marginBottom: '0.25rem' }}>
+      <div className="p-8 flex flex-col h-full">
+        <p className="font-sans font-extrabold" style={{ fontSize: '0.7rem', color: tier.color, letterSpacing: '0.22em', textTransform: 'uppercase', marginBottom: '0.25rem' }}>
           {tier.name}
         </p>
-        <p style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '0.85rem', color: TEXT_MUTED, marginBottom: '1.5rem' }}>
+        <p className="font-serif italic text-muted-dark mb-6" style={{ fontSize: '0.85rem' }}>
           {tier.size}
         </p>
         <div className="flex items-baseline gap-2 mb-1">
-          <span style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 700, fontSize: '2.25rem', letterSpacing: '-2px', color: TEXT_PRIMARY, lineHeight: 1 }}>
+          <span className="font-sans font-bold text-cream" style={{ fontSize: '2.25rem', letterSpacing: '-2px', lineHeight: 1 }}>
             {tier.price}
           </span>
         </div>
-        <p style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '0.85rem', color: TEXT_MUTED, marginBottom: '1.75rem' }}>
+        <p className="font-serif italic text-muted-dark mb-7" style={{ fontSize: '0.85rem' }}>
           {tier.per}
         </p>
-        <div style={{ borderTop: `1px solid ${BORDER_DARK}`, paddingTop: '1.25rem', flex: 1 }}>
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', paddingTop: '1.25rem', flex: 1 }}>
           <ul className="space-y-3">
             {tier.features.map((f) => (
               <li key={f} className="flex items-start gap-3">
                 <Check color={tier.color} />
-                <span style={{ fontSize: '0.85rem', fontWeight: 300, color: TEXT_MUTED, lineHeight: 1.5 }}>{f}</span>
+                <span className="text-muted-dark" style={{ fontSize: '0.85rem', fontWeight: 300, lineHeight: 1.5 }}>{f}</span>
               </li>
             ))}
           </ul>
@@ -115,26 +104,25 @@ export default function Pricing() {
   const inView = useInView(ref, { once: true, margin: '-20px' })
 
   return (
-    <section id="pricing" className="py-36" style={{ background: DARK }}>
+    <section id="pricing" className="py-36 bg-dark">
       <div className="max-w-8xl mx-auto px-8 md:px-16" ref={ref}>
 
-        {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <div className="flex items-baseline gap-4 mb-10" style={{ borderTop: `2px solid ${GOLD}`, paddingTop: '1.1rem' }}>
-            <span style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 800, fontSize: '0.75rem', color: GOLD, letterSpacing: '0.22em' }}>03</span>
-            <span style={{ width: '1px', height: '10px', background: BORDER_DARK, display: 'inline-block' }} />
-            <span style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: TEXT_DIM }}>Investment</span>
+          <div className="flex items-baseline gap-4 mb-10" style={{ borderTop: '2px solid #C8956C', paddingTop: '1.1rem' }}>
+            <span className="section-number">03</span>
+            <span className="section-pipe" />
+            <span className="section-label">Investment</span>
           </div>
-          <div style={{ width: '40px', height: '3px', background: GOLD, marginBottom: '1.25rem' }} />
-          <h2 style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 700, fontSize: 'clamp(2.4rem, 4.5vw, 3.5rem)', letterSpacing: '-2px', color: TEXT_PRIMARY, marginBottom: '0.75rem', lineHeight: 1.05 }}>
+          <div className="divider-gold mb-5" />
+          <h2 className="heading-xl mb-3">
             Choose Your Path Forward
           </h2>
-          <p style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '1.2rem', fontWeight: 600, color: GOLD, opacity: 0.85, lineHeight: 1.5 }}>
+          <p className="pull-quote" style={{ opacity: 0.85 }}>
             Every plan includes full LIT Program access and a structured path to results.
           </p>
         </motion.div>
@@ -146,62 +134,42 @@ export default function Pricing() {
           transition={{ duration: 0.55, delay: 0.1 }}
           className="mb-4"
           style={{
-            background: DARK_CARD,
-            borderTop: `2px solid ${GOLD}`,
-            border: `1px solid rgba(200,149,108,0.25)`,
+            background: '#111E2E',
+            border: '1px solid rgba(200,149,108,0.25)',
             borderTopWidth: '2px',
-            borderTopColor: GOLD,
+            borderTopColor: '#C8956C',
           }}
         >
-          {/* Founder Rate badge */}
-          <div style={{ background: GOLD, display: 'inline-block', padding: '4px 16px', fontSize: '0.62rem', fontWeight: 800, letterSpacing: '0.18em', textTransform: 'uppercase', color: NAVY }}>
+          <div style={{ background: '#C8956C', display: 'inline-block', padding: '4px 16px', fontSize: '0.62rem', fontWeight: 800, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#0F172A' }}>
             Founder Rate — Limited Availability
           </div>
 
           <div className="grid md:grid-cols-2 gap-0">
-            {/* Left — price + CTA */}
-            <div className="p-8" style={{ borderRight: `1px solid ${BORDER_DARK}` }}>
-              <p style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 800, fontSize: '0.7rem', color: GOLD, letterSpacing: '0.22em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+            <div className="p-8" style={{ borderRight: '1px solid rgba(255,255,255,0.07)' }}>
+              <p className="font-sans font-extrabold text-gold mb-2" style={{ fontSize: '0.7rem', letterSpacing: '0.22em', textTransform: 'uppercase' }}>
                 Individual Enrollment
               </p>
-              <p style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '1rem', color: TEXT_MUTED, marginBottom: '1.75rem', lineHeight: 1.5 }}>
+              <p className="font-serif italic text-muted-dark mb-7" style={{ fontSize: '1rem', lineHeight: 1.5 }}>
                 Full LIT Program — 10 Weeks or 5-Week Fast Track
               </p>
               <div className="flex items-baseline gap-3 mb-1">
-                <span style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 700, fontSize: '3.25rem', letterSpacing: '-3px', color: TEXT_PRIMARY, lineHeight: 1 }}>
+                <span className="font-sans font-bold text-cream" style={{ fontSize: '3.25rem', letterSpacing: '-3px', lineHeight: 1 }}>
                   $1,099
                 </span>
-                <span style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontSize: '1.1rem', color: 'rgba(200,149,108,0.4)', textDecoration: 'line-through' }}>
+                <span className="font-sans text-gold" style={{ fontSize: '1.1rem', opacity: 0.4, textDecoration: 'line-through' }}>
                   $1,499
                 </span>
               </div>
-              <p style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '0.88rem', color: TEXT_MUTED, marginBottom: '2rem' }}>
+              <p className="font-serif italic text-muted-dark mb-8" style={{ fontSize: '0.88rem' }}>
                 per person
               </p>
-              <Link
-                to="/program"
-                style={{
-                  display: 'inline-block',
-                  background: GOLD,
-                  color: NAVY,
-                  padding: '14px 36px',
-                  fontSize: '0.72rem',
-                  fontWeight: 800,
-                  letterSpacing: '0.14em',
-                  textTransform: 'uppercase',
-                  textDecoration: 'none',
-                  transition: 'background 0.2s ease',
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = GOLD_LIGHT)}
-                onMouseLeave={(e) => (e.currentTarget.style.background = GOLD)}
-              >
+              <Link to="/program" className="btn btn-gold">
                 Enroll Now
               </Link>
             </div>
 
-            {/* Right — features */}
             <div className="p-8">
-              <p style={{ fontSize: '0.62rem', fontWeight: 800, letterSpacing: '0.18em', textTransform: 'uppercase', color: TEXT_DIM, marginBottom: '1.25rem' }}>
+              <p className="font-sans font-extrabold" style={{ fontSize: '0.62rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#4B5568', marginBottom: '1.25rem' }}>
                 What's Included
               </p>
               <ul className="space-y-4">
@@ -212,8 +180,8 @@ export default function Pricing() {
                   'Real-world leadership scenarios — not theory',
                 ].map((f) => (
                   <li key={f} className="flex items-start gap-3">
-                    <Check color={GOLD} />
-                    <span style={{ fontSize: '0.9rem', fontWeight: 300, color: TEXT_MUTED, lineHeight: 1.5 }}>{f}</span>
+                    <Check color="#C8956C" />
+                    <span className="text-muted-dark" style={{ fontSize: '0.9rem', fontWeight: 300, lineHeight: 1.5 }}>{f}</span>
                   </li>
                 ))}
               </ul>
@@ -221,7 +189,7 @@ export default function Pricing() {
           </div>
         </motion.div>
 
-        {/* Team tiers — 3 equal cards */}
+        {/* Team tiers */}
         <div className="grid md:grid-cols-3">
           {teamTiers.map((tier, i) => (
             <TierCard key={tier.name} tier={tier} index={i} inView={inView} last={i === teamTiers.length - 1} />
@@ -233,17 +201,18 @@ export default function Pricing() {
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5, delay: 0.5 }}
           className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-4"
-          style={{ borderTop: `1px solid ${BORDER_DARK}`, paddingTop: '1.5rem' }}
+          style={{ borderTop: '1px solid rgba(255,255,255,0.07)', paddingTop: '1.5rem' }}
         >
-          <p style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '0.95rem', color: TEXT_MUTED }}>
+          <p className="font-serif italic text-muted-dark" style={{ fontSize: '0.95rem' }}>
             Not sure which option is right?{' '}
-            <Link to="/program" style={{ color: GOLD, textDecoration: 'underline' }}>
+            <Link to="/program" className="text-gold" style={{ textDecoration: 'underline' }}>
               View the full program details
             </Link>.
           </p>
           <button
             onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-            style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: GOLD, cursor: 'pointer', whiteSpace: 'nowrap' }}
+            className="text-gold font-sans font-bold cursor-pointer"
+            style={{ fontSize: '0.7rem', letterSpacing: '0.14em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}
           >
             Contact us for team pricing →
           </button>

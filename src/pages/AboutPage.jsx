@@ -1,26 +1,13 @@
 import { useRef } from 'react'
-import { motion } from 'framer-motion'
-import { useInView } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-
-const CREAM = '#FAF7F2'
-const CREAM_DEEP = '#F0E9DF'
-const DARK = '#0C1420'
-const DARK_CARD = '#111E2E'
-const GOLD_LIGHT = '#A17B4F'
-const GOLD = '#C8956C'
-const NAVY = '#0F172A'
-const TEXT = '#1C1510'
-const TEXT_MUTED = '#5C4F45'
-const TEXT_DIM = '#9C8E85'
-const BORDER = 'rgba(28,21,16,0.12)'
-const BORDER_DARK = 'rgba(255,255,255,0.07)'
+import mattHeadshot from '../assets/Matt_Headshot.jpg'
 
 function SectionTransition({ from = 'light' }) {
-  const bg = from === 'light' ? CREAM_DEEP : DARK
-  const thick = from === 'light' ? 'rgba(28,21,16,0.22)' : `rgba(200,149,108,0.4)`
+  const bg = from === 'light' ? '#F0E9DF' : '#0C1420'
+  const thick = from === 'light' ? 'rgba(28,21,16,0.22)' : 'rgba(200,149,108,0.4)'
   const thin = from === 'light' ? 'rgba(28,21,16,0.08)' : 'rgba(200,149,108,0.12)'
   return (
     <div style={{ background: bg, padding: '0 2rem' }}>
@@ -31,20 +18,15 @@ function SectionTransition({ from = 'light' }) {
 }
 
 function ChapterHeader({ number, label, dark }) {
-  const gold = dark ? GOLD : GOLD_LIGHT
-  const border = dark ? BORDER_DARK : BORDER
-  const dim = dark ? 'rgba(255,255,255,0.25)' : TEXT_DIM
+  const gold = dark ? '#C8956C' : '#A17B4F'
+  const border = dark ? 'rgba(255,255,255,0.07)' : 'rgba(28,21,16,0.12)'
   return (
     <div className="flex items-baseline gap-4 mb-12" style={{ borderTop: `2px solid ${gold}`, paddingTop: '1.1rem' }}>
-      <span style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 800, fontSize: '0.75rem', color: gold, letterSpacing: '0.22em' }}>{number}</span>
+      <span className="section-number">{number}</span>
       <span style={{ width: '1px', height: '10px', background: border, display: 'inline-block' }} />
-      <span style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: dim }}>{label}</span>
+      <span className={dark ? 'section-label' : 'section-label-dark'}>{label}</span>
     </div>
   )
-}
-
-function AccentBar({ color }) {
-  return <div style={{ width: '40px', height: '3px', background: color, marginBottom: '1.25rem' }} />
 }
 
 function FadeSection({ children, className, style }) {
@@ -90,7 +72,7 @@ const clarityOutcomes = [
 const credentialColumns = [
   {
     label: 'Education',
-    items: ['Master\'s in Management & Leadership (MSML)'],
+    items: ["Master's in Management & Leadership (MSML)"],
   },
   {
     label: 'Certifications',
@@ -103,7 +85,7 @@ const credentialColumns = [
   {
     label: 'Recognition & Awards',
     items: [
-      'Marquis Who\'s Who Listee',
+      "Marquis Who's Who Listee",
       'Multi Presidents Club Award Winning Leader',
     ],
   },
@@ -122,15 +104,15 @@ function CredentialsGrid() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: i * 0.14, ease: 'easeOut' }}
           style={{
-            borderRight: i < credentialColumns.length - 1 ? `1px solid ${BORDER_DARK}` : 'none',
+            borderRight: i < credentialColumns.length - 1 ? '1px solid rgba(255,255,255,0.07)' : 'none',
             paddingRight: i < credentialColumns.length - 1 ? '2.5rem' : '0',
             paddingLeft: i > 0 ? '2.5rem' : '0',
           }}
         >
-          <p style={{ fontSize: '0.62rem', fontWeight: 800, letterSpacing: '0.2em', textTransform: 'uppercase', color: GOLD, opacity: 0.8, marginBottom: '1.25rem', paddingBottom: '0.75rem', borderBottom: `1px solid ${BORDER_DARK}` }}>
+          <p className="eyebrow mb-5 pb-3" style={{ opacity: 0.8, borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
             {col.label}
           </p>
-          <ul className="space-y-0">
+          <ul>
             {col.items.map((item, j) => (
               <motion.li
                 key={item}
@@ -138,10 +120,10 @@ function CredentialsGrid() {
                 animate={inView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.4, delay: i * 0.14 + j * 0.1 + 0.15, ease: 'easeOut' }}
                 className="flex items-start gap-3"
-                style={{ padding: '0.75rem 0', borderBottom: j < col.items.length - 1 ? `1px solid ${BORDER_DARK}` : 'none' }}
+                style={{ padding: '0.75rem 0', borderBottom: j < col.items.length - 1 ? '1px solid rgba(255,255,255,0.07)' : 'none' }}
               >
-                <span style={{ display: 'inline-block', width: '4px', height: '4px', borderRadius: '50%', background: GOLD, flexShrink: 0, marginTop: '8px', opacity: 0.6 }} />
-                <span style={{ fontSize: '0.88rem', fontWeight: 400, color: '#8A9AAA', lineHeight: 1.65 }}>{item}</span>
+                <span style={{ display: 'inline-block', width: '4px', height: '4px', borderRadius: '50%', background: '#C8956C', flexShrink: 0, marginTop: '8px', opacity: 0.6 }} />
+                <span className="text-muted-dark" style={{ fontSize: '0.88rem', fontWeight: 400, lineHeight: 1.65 }}>{item}</span>
               </motion.li>
             ))}
           </ul>
@@ -162,7 +144,7 @@ function StatsRow() {
   ]
 
   return (
-    <div ref={ref} className="flex flex-wrap gap-x-12 gap-y-6" style={{ borderTop: `1px solid ${BORDER_DARK}`, paddingTop: '2rem' }}>
+    <div ref={ref} className="flex flex-wrap gap-x-12 gap-y-6" style={{ borderTop: '1px solid rgba(255,255,255,0.07)', paddingTop: '2rem' }}>
       {stats.map((s, i) => (
         <motion.div
           key={s.label}
@@ -170,8 +152,8 @@ function StatsRow() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.45, delay: i * 0.1, ease: 'easeOut' }}
         >
-          <div style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 700, fontSize: '2.25rem', letterSpacing: '-2px', color: '#F5F0EB', lineHeight: 1 }}>{s.value}</div>
-          <div style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '0.9rem', color: '#8A9AAA', marginTop: '4px' }}>{s.label}</div>
+          <div className="stat-value">{s.value}</div>
+          <div className="stat-label">{s.label}</div>
         </motion.div>
       ))}
     </div>
@@ -185,48 +167,91 @@ export default function AboutPage() {
       <main>
 
         {/* Page header */}
-        <section className="pt-40 pb-24" style={{ background: CREAM }}>
+        <section className="pt-40 pb-0 bg-cream">
           <div className="max-w-8xl mx-auto px-8 md:px-16">
-            <FadeSection>
-              <p style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '1.1rem', color: GOLD_LIGHT, marginBottom: '1.5rem' }}>
-                The story behind the work
-              </p>
-              <AccentBar color={GOLD_LIGHT} />
-              <h1 style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 700, fontSize: 'clamp(3rem, 7vw, 6rem)', lineHeight: 0.97, letterSpacing: '-3px', color: NAVY, marginBottom: '1.5rem' }}>
-                About<br /><span style={{ color: GOLD_LIGHT }}>Matt Njoku</span>
-              </h1>
-              <p style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '1.4rem', fontWeight: 600, color: '#2D3748', maxWidth: '600px', lineHeight: 1.5 }}>
-                "Self Growth Never Stops."
-              </p>
-            </FadeSection>
+            <div className="grid md:grid-cols-2 gap-16 items-end">
+
+              {/* Text */}
+              <motion.div
+                initial={{ opacity: 0, y: 28 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.65, ease: 'easeOut' }}
+                className="pb-24"
+              >
+                <p className="font-serif italic text-gold-light mb-6" style={{ fontSize: '1.1rem' }}>
+                  The story behind the work
+                </p>
+                <div className="accent-bar-light mb-5" />
+                <h1 className="font-sans font-bold text-navy mb-6" style={{ fontSize: 'clamp(3rem, 7vw, 5.5rem)', lineHeight: 0.97, letterSpacing: '-3px' }}>
+                  About<br /><span className="text-gold-light">Matt Njoku</span>
+                </h1>
+                <p className="font-serif italic font-semibold" style={{ fontSize: '1.4rem', color: '#2D3748', maxWidth: '480px', lineHeight: 1.5 }}>
+                  "Self Growth Never Stops."
+                </p>
+              </motion.div>
+
+              {/* Image */}
+              <motion.div
+                initial={{ opacity: 0, x: 40 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.75, delay: 0.2, ease: 'easeOut' }}
+                className="relative"
+              >
+                <div style={{ position: 'absolute', left: '-1.5rem', top: '10%', bottom: '0', width: '2px', background: 'linear-gradient(to bottom, #A17B4F, transparent)' }} />
+
+                <div className="relative overflow-hidden" style={{ aspectRatio: '4/5' }}>
+                  <motion.img
+                    src={mattHeadshot}
+                    alt="Matt Njoku"
+                    className="w-full h-full object-cover"
+                    style={{ objectPosition: 'top center', filter: 'brightness(0.88) sepia(0.06)' }}
+                    initial={{ scale: 1.06 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 0.9, delay: 0.2, ease: 'easeOut' }}
+                  />
+                  <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '35%', background: 'linear-gradient(to top, #FAF7F2 0%, transparent 100%)' }} />
+                </div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.7 }}
+                  style={{ position: 'absolute', bottom: '2rem', left: '1.5rem', background: '#A17B4F', padding: '1rem 1.5rem' }}
+                >
+                  <div className="font-sans font-bold text-cream" style={{ fontSize: '2rem', lineHeight: 1 }}>20+</div>
+                  <div className="font-serif italic text-cream" style={{ fontSize: '0.88rem', opacity: 0.85, marginTop: '4px' }}>Years of experience</div>
+                </motion.div>
+              </motion.div>
+
+            </div>
           </div>
         </section>
 
         <SectionTransition from="light" />
 
-        {/* Chapter 1 — Where It Started */}
-        <section className="py-28" style={{ background: DARK }}>
+        {/* Chapter 1 */}
+        <section className="py-28 bg-dark">
           <div className="max-w-8xl mx-auto px-8 md:px-16">
             <FadeSection>
               <ChapterHeader number="01" label="Where It Started" dark />
               <div className="grid md:grid-cols-2 gap-16 items-start">
                 <div>
-                  <AccentBar color={GOLD} />
-                  <h2 style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 700, fontSize: 'clamp(2rem, 4vw, 2.75rem)', letterSpacing: '-1.5px', color: '#F5F0EB', marginBottom: '1.75rem', lineHeight: 1.08 }}>
-                    Leadership was part of the <span style={{ color: GOLD }}>foundation.</span>
+                  <div className="accent-bar mb-5" />
+                  <h2 className="heading-lg mb-7">
+                    Leadership was part of the <span className="text-gold">foundation.</span>
                   </h2>
-                  <p style={{ color: '#8A9AAA', fontSize: '1rem', fontWeight: 400, lineHeight: 1.85, marginBottom: '1.25rem' }}>
+                  <p className="body-lead mb-5">
                     Leadership has been a part of my life long before I ever stepped into a corporate role. As an All-American collegiate athlete and team captain from high school through college, I was shaped by values like hard work, discipline, confidence, coachability, and teamwork.
                   </p>
-                  <p style={{ color: '#8A9AAA', fontSize: '1rem', fontWeight: 400, lineHeight: 1.85 }}>
+                  <p className="body-lead">
                     Those weren't just things I practiced on the field — they became the foundation for how I approached everything. While I had aspirations in professional sports, my parents encouraged me to pursue a different path — one that combined education with real-world experience. That decision changed everything.
                   </p>
                 </div>
-                <div style={{ borderLeft: `1px solid ${BORDER_DARK}`, paddingLeft: '3rem' }}>
-                  <p style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '1.5rem', fontWeight: 600, color: GOLD, lineHeight: 1.5, marginBottom: '2rem' }}>
+                <div style={{ borderLeft: '1px solid rgba(255,255,255,0.07)', paddingLeft: '3rem' }}>
+                  <p className="pull-quote mb-8">
                     "I took the same mindset that drove me in athletics and brought it into business."
                   </p>
-                  <p style={{ color: '#8A9AAA', fontSize: '1rem', fontWeight: 400, lineHeight: 1.85 }}>
+                  <p className="body-lead">
                     I wanted to learn fast, compete at a high level, and earn the opportunity to lead.
                   </p>
                 </div>
@@ -235,35 +260,35 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Chapter 2 — Building as a Leader */}
-        <section className="py-28" style={{ background: CREAM_DEEP }}>
+        {/* Chapter 2 */}
+        <section className="py-28 bg-cream-deep">
           <div className="max-w-8xl mx-auto px-8 md:px-16">
             <FadeSection>
               <ChapterHeader number="02" label="Building as a Leader" dark={false} />
               <div className="grid md:grid-cols-2 gap-16 items-start">
                 <div>
-                  <AccentBar color={GOLD_LIGHT} />
-                  <h2 style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 700, fontSize: 'clamp(2rem, 4vw, 2.75rem)', letterSpacing: '-1.5px', color: TEXT, marginBottom: '1.75rem', lineHeight: 1.08 }}>
-                    From rep to <span style={{ color: GOLD_LIGHT }}>head of sales.</span>
+                  <div className="accent-bar-light mb-5" />
+                  <h2 className="heading-lg-dark mb-7">
+                    From rep to <span className="text-gold-light">head of sales.</span>
                   </h2>
-                  <p style={{ color: TEXT_MUTED, fontSize: '1rem', fontWeight: 400, lineHeight: 1.85, marginBottom: '1.5rem' }}>
+                  <p className="body-lead-dark mb-6">
                     Early in my career, I committed to growth on every level. While working full-time, I earned my Master's degree in Management and Leadership — applying what I learned in real time. That combination of education and execution helped me rise quickly through the ranks.
                   </p>
-                  <p style={{ color: TEXT_MUTED, fontSize: '1rem', fontWeight: 400, lineHeight: 1.85 }}>
+                  <p className="body-lead-dark">
                     I became the #1 leader at multiple companies I worked for. From the outside, it looked like a fast climb. But internally, I was learning some hard lessons.
                   </p>
                 </div>
                 <div>
-                  <p style={{ fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.2em', textTransform: 'uppercase', color: TEXT_DIM, marginBottom: '1.5rem' }}>Career Progression</p>
+                  <p className="font-sans font-extrabold text-text-dim mb-6" style={{ fontSize: '0.65rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>Career Progression</p>
                   <div className="space-y-0">
                     {careerSteps.map((step, i) => (
-                      <div key={step} className="flex items-center gap-4" style={{ padding: '1rem 0', borderBottom: i < careerSteps.length - 1 ? `1px solid ${BORDER}` : 'none' }}>
-                        <div style={{ width: '6px', height: '6px', background: i === careerSteps.length - 1 ? GOLD_LIGHT : BORDER, borderRadius: '50%', flexShrink: 0 }} />
-                        <span style={{ fontSize: '0.9rem', fontWeight: i === careerSteps.length - 1 ? 700 : 400, color: i === careerSteps.length - 1 ? TEXT : TEXT_MUTED, letterSpacing: '0.01em' }}>
+                      <div key={step} className="flex items-center gap-4" style={{ padding: '1rem 0', borderBottom: i < careerSteps.length - 1 ? '1px solid rgba(28,21,16,0.12)' : 'none' }}>
+                        <div style={{ width: '6px', height: '6px', background: i === careerSteps.length - 1 ? '#A17B4F' : 'rgba(28,21,16,0.12)', borderRadius: '50%', flexShrink: 0 }} />
+                        <span className={i === careerSteps.length - 1 ? 'font-bold text-text' : 'text-text-muted'} style={{ fontSize: '0.9rem', letterSpacing: '0.01em' }}>
                           {step}
                         </span>
                         {i === careerSteps.length - 1 && (
-                          <span style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '0.8rem', color: GOLD_LIGHT, marginLeft: 'auto' }}>Current</span>
+                          <span className="font-serif italic text-gold-light ml-auto" style={{ fontSize: '0.8rem' }}>Current</span>
                         )}
                       </div>
                     ))}
@@ -276,23 +301,23 @@ export default function AboutPage() {
 
         <SectionTransition from="light" />
 
-        {/* Chapter 3 — The Moment */}
-        <section className="py-28" style={{ background: DARK }}>
+        {/* Chapter 3 */}
+        <section className="py-28 bg-dark">
           <div className="max-w-8xl mx-auto px-8 md:px-16">
             <FadeSection>
               <ChapterHeader number="03" label="The Moment Everything Changed" dark />
               <div style={{ maxWidth: '720px' }}>
-                <AccentBar color={GOLD} />
-                <h2 style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 700, fontSize: 'clamp(2rem, 4vw, 2.75rem)', letterSpacing: '-1.5px', color: '#F5F0EB', marginBottom: '1.75rem', lineHeight: 1.08 }}>
-                  The mistake most leaders make — but <span style={{ color: GOLD }}>few talk about.</span>
+                <div className="accent-bar mb-5" />
+                <h2 className="heading-lg mb-7">
+                  The mistake most leaders make — but <span className="text-gold">few talk about.</span>
                 </h2>
-                <p style={{ color: '#8A9AAA', fontSize: '1rem', fontWeight: 400, lineHeight: 1.85, marginBottom: '1.25rem' }}>
+                <p className="body-lead mb-5">
                   When I took over my first sales team, I made a mistake that a lot of leaders make — but few talk about. I focused almost entirely on performance. In a skip-level meeting, it became clear: I hadn't built real, genuine connections with my team.
                 </p>
-                <p style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '1.4rem', fontWeight: 600, color: GOLD, lineHeight: 1.5, margin: '2rem 0', paddingLeft: '1.5rem', borderLeft: `3px solid ${GOLD}` }}>
+                <p className="pull-quote my-8 pl-6" style={{ borderLeft: '3px solid #C8956C' }}>
                   "That moment stuck with me. Because I realized — this wasn't just a 'me' problem."
                 </p>
-                <p style={{ color: '#8A9AAA', fontSize: '1rem', fontWeight: 400, lineHeight: 1.85 }}>
+                <p className="body-lead">
                   As I continued leading and working with other managers, patterns started to show up everywhere — and they all pointed to the same root cause.
                 </p>
               </div>
@@ -300,34 +325,34 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Chapter 4 — What I Started to See */}
-        <section className="py-28" style={{ background: CREAM_DEEP }}>
+        {/* Chapter 4 */}
+        <section className="py-28 bg-cream-deep">
           <div className="max-w-8xl mx-auto px-8 md:px-16">
             <FadeSection>
               <ChapterHeader number="04" label="What I Started to See" dark={false} />
               <div className="grid md:grid-cols-2 gap-16 items-start">
                 <div>
-                  <AccentBar color={GOLD_LIGHT} />
-                  <h2 style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 700, fontSize: 'clamp(2rem, 4vw, 2.75rem)', letterSpacing: '-1.5px', color: TEXT, marginBottom: '1.75rem', lineHeight: 1.08 }}>
-                    A pattern no one was <span style={{ color: GOLD_LIGHT }}>addressing.</span>
+                  <div className="accent-bar-light mb-5" />
+                  <h2 className="heading-lg-dark mb-7">
+                    A pattern no one was <span className="text-gold-light">addressing.</span>
                   </h2>
-                  <p style={{ color: TEXT_MUTED, fontSize: '1rem', lineHeight: 1.85, marginBottom: '2rem' }}>
-                    As Matt continued leading and working with other managers, the same patterns kept appearing across different industries, team sizes, and career stages.
+                  <p className="body-lead-dark mb-8">
+                    As I continued leading and working with other managers, the same patterns kept appearing across different industries, team sizes, and career stages.
                   </p>
-                  <p style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '1.15rem', fontWeight: 600, color: GOLD_LIGHT, lineHeight: 1.5, marginBottom: '2rem' }}>
+                  <p className="pull-quote-light mb-8">
                     "What frustrated me wasn't that leaders were failing — it was why. There were no clear guidelines. No consistent frameworks. No alignment."
                   </p>
-                  <p style={{ color: TEXT_MUTED, fontSize: '1rem', lineHeight: 1.85 }}>
+                  <p className="body-lead-dark">
                     People weren't underperforming because they lacked potential. They were underperforming because they lacked clarity.
                   </p>
                 </div>
                 <div>
-                  <p style={{ fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.2em', textTransform: 'uppercase', color: TEXT_DIM, marginBottom: '1.5rem' }}>Patterns Seen Across Teams</p>
+                  <p className="font-sans font-extrabold text-text-dim mb-6" style={{ fontSize: '0.65rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>Patterns Seen Across Teams</p>
                   <div className="space-y-0">
                     {patterns.map((p, i) => (
-                      <div key={p} className="flex items-start gap-4" style={{ padding: '1rem 0', borderBottom: i < patterns.length - 1 ? `1px solid ${BORDER}` : 'none' }}>
-                        <div style={{ width: '6px', height: '6px', background: GOLD_LIGHT, borderRadius: '50%', flexShrink: 0, marginTop: '7px' }} />
-                        <span style={{ fontSize: '0.9rem', fontWeight: 400, color: TEXT_MUTED, lineHeight: 1.6 }}>{p}</span>
+                      <div key={p} className="flex items-start gap-4" style={{ padding: '1rem 0', borderBottom: i < patterns.length - 1 ? '1px solid rgba(28,21,16,0.12)' : 'none' }}>
+                        <div style={{ width: '6px', height: '6px', background: '#A17B4F', borderRadius: '50%', flexShrink: 0, marginTop: '7px' }} />
+                        <span className="body-lead-dark" style={{ fontSize: '0.9rem' }}>{p}</span>
                       </div>
                     ))}
                   </div>
@@ -339,34 +364,34 @@ export default function AboutPage() {
 
         <SectionTransition from="light" />
 
-        {/* Chapter 5 — Why I Built This */}
-        <section className="py-28" style={{ background: DARK }}>
+        {/* Chapter 5 */}
+        <section className="py-28 bg-dark">
           <div className="max-w-8xl mx-auto px-8 md:px-16">
             <FadeSection>
               <ChapterHeader number="05" label="Why I Built This" dark />
               <div className="grid md:grid-cols-2 gap-16 items-start">
                 <div>
-                  <AccentBar color={GOLD} />
-                  <h2 style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 700, fontSize: 'clamp(2rem, 4vw, 2.75rem)', letterSpacing: '-1.5px', color: '#F5F0EB', marginBottom: '1.75rem', lineHeight: 1.08 }}>
-                    To give leaders the clarity they <span style={{ color: GOLD }}>never got.</span>
+                  <div className="accent-bar mb-5" />
+                  <h2 className="heading-lg mb-7">
+                    To give leaders the clarity they <span className="text-gold">never got.</span>
                   </h2>
-                  <p style={{ color: '#8A9AAA', fontSize: '1rem', lineHeight: 1.85, marginBottom: '1.25rem' }}>
+                  <p className="body-lead mb-5">
                     I built this to change that. To give leaders a clear, practical foundation — so they know what to do from day one. This isn't about theory. It's about giving real leaders the tools, structure, and mindset they need to succeed — without having to learn everything the hard way.
                   </p>
-                  <p style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '1.2rem', fontWeight: 600, color: GOLD, lineHeight: 1.5, marginTop: '1.5rem' }}>
+                  <p className="pull-quote mt-6">
                     "Because better leaders don't just build better teams — they build better organizations."
                   </p>
                 </div>
                 <div>
-                  <p style={{ fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(200,149,108,0.5)', marginBottom: '1.5rem' }}>When Leaders Have Clarity</p>
+                  <p className="font-sans font-extrabold text-gold mb-6" style={{ fontSize: '0.65rem', letterSpacing: '0.2em', textTransform: 'uppercase', opacity: 0.5 }}>When Leaders Have Clarity</p>
                   <div className="space-y-0">
                     {clarityOutcomes.map((o, i) => (
-                      <div key={o} className="flex items-start gap-4" style={{ padding: '1.1rem 0', borderBottom: i < clarityOutcomes.length - 1 ? `1px solid ${BORDER_DARK}` : 'none' }}>
+                      <div key={o} className="flex items-start gap-4" style={{ padding: '1.1rem 0', borderBottom: i < clarityOutcomes.length - 1 ? '1px solid rgba(255,255,255,0.07)' : 'none' }}>
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: '3px' }}>
                           <circle cx="8" cy="8" r="7" fill="rgba(200,149,108,0.12)" />
-                          <path d="M5 8l2.5 2.5L11 5.5" stroke={GOLD} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                          <path d="M5 8l2.5 2.5L11 5.5" stroke="#C8956C" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
-                        <span style={{ fontSize: '0.95rem', fontWeight: 400, color: '#8A9AAA', lineHeight: 1.6 }}>{o}</span>
+                        <span className="body-lead" style={{ fontSize: '0.95rem' }}>{o}</span>
                       </div>
                     ))}
                   </div>
@@ -377,14 +402,14 @@ export default function AboutPage() {
         </section>
 
         {/* The Mission */}
-        <section className="py-28" style={{ background: CREAM }}>
+        <section className="py-28 bg-cream">
           <div className="max-w-8xl mx-auto px-8 md:px-16">
             <FadeSection>
-              <div style={{ borderTop: `2px solid ${GOLD_LIGHT}`, paddingTop: '1.1rem', marginBottom: '2rem' }}>
-                <span style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 800, fontSize: '0.75rem', color: GOLD_LIGHT, letterSpacing: '0.22em' }}>The Mission</span>
+              <div style={{ borderTop: '2px solid #A17B4F', paddingTop: '1.1rem', marginBottom: '2rem' }}>
+                <span className="section-number">The Mission</span>
               </div>
-              <AccentBar color={GOLD_LIGHT} />
-              <p style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 700, fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)', letterSpacing: '-1.5px', color: NAVY, lineHeight: 1.15, maxWidth: '760px' }}>
+              <div className="accent-bar-light mb-5" />
+              <p className="font-sans font-bold text-navy" style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)', letterSpacing: '-1.5px', lineHeight: 1.15, maxWidth: '760px' }}>
                 To develop confident, effective leaders who know how to lead people — not just manage performance.
               </p>
             </FadeSection>
@@ -394,19 +419,17 @@ export default function AboutPage() {
         <SectionTransition from="light" />
 
         {/* Credentials */}
-        <section className="py-28" style={{ background: DARK }}>
+        <section className="py-28 bg-dark">
           <div className="max-w-8xl mx-auto px-8 md:px-16">
             <FadeSection>
-              <div className="flex items-baseline gap-4 mb-16" style={{ borderTop: `2px solid ${GOLD}`, paddingTop: '1.1rem' }}>
-                <span style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 800, fontSize: '0.75rem', color: GOLD, letterSpacing: '0.22em' }}>06</span>
-                <span style={{ width: '1px', height: '10px', background: BORDER_DARK, display: 'inline-block' }} />
-                <span style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.25)' }}>Credentials</span>
+              <div className="flex items-baseline gap-4 mb-16" style={{ borderTop: '2px solid #C8956C', paddingTop: '1.1rem' }}>
+                <span className="section-number">06</span>
+                <span className="section-pipe" />
+                <span className="section-label">Credentials</span>
               </div>
             </FadeSection>
 
             <CredentialsGrid />
-
-            {/* Stats row */}
             <StatsRow />
           </div>
         </section>
@@ -414,35 +437,25 @@ export default function AboutPage() {
         <SectionTransition from="dark" />
 
         {/* CTA */}
-        <section className="py-28" style={{ background: CREAM }}>
+        <section className="py-28 bg-cream">
           <div className="max-w-8xl mx-auto px-8 md:px-16">
             <FadeSection>
-              <AccentBar color={GOLD_LIGHT} />
-              <h2 style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 700, fontSize: 'clamp(2rem, 4vw, 3rem)', letterSpacing: '-1.5px', color: NAVY, marginBottom: '0.75rem', lineHeight: 1.05 }}>
+              <div className="accent-bar-light mb-5" />
+              <h2 className="heading-xl-dark mb-3">
                 Ready to Become the Leader Your Team Actually Needs?
               </h2>
-              <p style={{ fontFamily: '"Playfair Display", serif', fontStyle: 'italic', fontSize: '1.2rem', fontWeight: 600, color: GOLD_LIGHT, marginBottom: '1.75rem', lineHeight: 1.5, maxWidth: '560px' }}>
+              <p className="pull-quote-light mb-7" style={{ maxWidth: '560px' }}>
                 "You don't need more guesswork. You need clarity, structure, and a proven approach that works in the real world."
               </p>
-              <div style={{ width: '100%', maxWidth: '560px', height: '1px', background: BORDER, marginBottom: '1.75rem' }} />
-              <p style={{ color: TEXT_MUTED, fontSize: '1rem', lineHeight: 1.85, maxWidth: '560px', marginBottom: '2.5rem' }}>
+              <div style={{ width: '100%', maxWidth: '560px', height: '1px', background: 'rgba(28,21,16,0.12)', marginBottom: '1.75rem' }} />
+              <p className="body-lead-dark mb-10" style={{ maxWidth: '560px' }}>
                 Whether you're leading your first team, struggling to get consistent performance, trying to build trust while driving results, or simply ready to operate at a higher level — this is where that shift happens.
               </p>
               <div className="flex flex-wrap gap-3">
-                <Link
-                  to="/program"
-                  style={{ background: NAVY, color: CREAM, padding: '14px 32px', fontSize: '0.75rem', letterSpacing: '0.14em', textTransform: 'uppercase', fontWeight: 700, textDecoration: 'none', display: 'inline-block' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = '#1E293B')}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = NAVY)}
-                >
+                <Link to="/program" className="btn btn-navy">
                   View the Program
                 </Link>
-                <Link
-                  to="/"
-                  style={{ background: 'transparent', color: NAVY, padding: '14px 32px', fontSize: '0.75rem', letterSpacing: '0.14em', textTransform: 'uppercase', fontWeight: 700, border: `1.5px solid ${BORDER}`, textDecoration: 'none', display: 'inline-block' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.borderColor = NAVY)}
-                  onMouseLeave={(e) => (e.currentTarget.style.borderColor = BORDER)}
-                >
+                <Link to="/" className="btn btn-outline-dark">
                   Book a Call
                 </Link>
               </div>
