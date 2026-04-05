@@ -167,16 +167,15 @@ export default function AboutPage() {
       <main>
 
         {/* Page header */}
-        <section className="pt-40 pb-0 bg-cream">
+        <section className="pt-32 pb-0 bg-cream">
           <div className="max-w-8xl mx-auto px-8 md:px-16">
-            <div className="grid md:grid-cols-2 gap-16 items-end">
+            <div className="grid md:grid-cols-2 gap-16 items-center">
 
               {/* Text */}
               <motion.div
                 initial={{ opacity: 0, y: 28 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.65, ease: 'easeOut' }}
-                className="pb-24"
               >
                 <p className="font-serif italic text-gold-light mb-6" style={{ fontSize: '1.1rem' }}>
                   The story behind the work
@@ -199,7 +198,7 @@ export default function AboutPage() {
               >
                 <div style={{ position: 'absolute', left: '-1.5rem', top: '10%', bottom: '0', width: '2px', background: 'linear-gradient(to bottom, #A17B4F, transparent)' }} />
 
-                <div className="relative overflow-hidden" style={{ aspectRatio: '4/5' }}>
+                <div className="overflow-hidden" style={{ aspectRatio: '4/5' }}>
                   <motion.img
                     src={mattHeadshot}
                     alt="Matt Njoku"
@@ -209,17 +208,33 @@ export default function AboutPage() {
                     animate={{ scale: 1 }}
                     transition={{ duration: 0.9, delay: 0.2, ease: 'easeOut' }}
                   />
-                  <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '35%', background: 'linear-gradient(to top, #FAF7F2 0%, transparent 100%)' }} />
                 </div>
 
                 <motion.div
-                  initial={{ opacity: 0, y: 12 }}
+                  initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.7 }}
-                  style={{ position: 'absolute', bottom: '2rem', left: '1.5rem', background: '#A17B4F', padding: '1rem 1.5rem' }}
+                  className="grid grid-cols-2"
+                  style={{ borderTop: '2px solid #A17B4F' }}
                 >
-                  <div className="font-sans font-bold text-cream" style={{ fontSize: '2rem', lineHeight: 1 }}>20+</div>
-                  <div className="font-serif italic text-cream" style={{ fontSize: '0.88rem', opacity: 0.85, marginTop: '4px' }}>Years of experience</div>
+                  {[
+                    { value: '20+', label: 'Years in Sales' },
+                    { value: '15+', label: 'Years Leading' },
+                    { value: '100+', label: 'Leaders Coached' },
+                    { value: '4x', label: 'Presidents Club' },
+                  ].map((s, i) => (
+                    <div
+                      key={s.label}
+                      style={{
+                        padding: '1rem 1.25rem',
+                        borderRight: i % 2 === 0 ? '1px solid rgba(28,21,16,0.1)' : 'none',
+                        borderBottom: i < 2 ? '1px solid rgba(28,21,16,0.1)' : 'none',
+                      }}
+                    >
+                      <div className="font-sans font-bold text-navy" style={{ fontSize: '1.4rem', lineHeight: 1, letterSpacing: '-0.5px' }}>{s.value}</div>
+                      <div className="font-serif italic" style={{ fontSize: '0.72rem', color: '#64748B', marginTop: '5px' }}>{s.label}</div>
+                    </div>
+                  ))}
                 </motion.div>
               </motion.div>
 

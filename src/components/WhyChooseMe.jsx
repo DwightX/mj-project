@@ -6,6 +6,13 @@ import mattHeadshot from '../assets/Matt_Headshot.jpg'
 
 const differentiators = ['Human-First Framework', 'Real-World Scenarios', '1:1 Coaching', 'Proven Systems', 'Accountability']
 
+const photoStats = [
+  { value: '20+', label: 'Years in Sales' },
+  { value: '15+', label: 'Years Leading' },
+  { value: '100+', label: 'Leaders Coached' },
+  { value: '4x', label: 'Presidents Club' },
+]
+
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
   show: (i = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.55, delay: i * 0.1, ease: 'easeOut' } }),
@@ -16,12 +23,12 @@ export default function WhyChooseMe() {
   const inView = useInView(ref, { once: true, margin: '-20px' })
 
   return (
-    <section id="about" className="py-36 bg-cream-deep" ref={ref}>
+    <section id="about" className="py-20 bg-cream-deep" ref={ref}>
       <div className="max-w-8xl mx-auto px-8 md:px-16">
 
         <motion.div
           variants={fadeUp} initial="hidden" animate={inView ? 'show' : 'hidden'} custom={0}
-          className="flex items-baseline gap-4 mb-16"
+          className="flex items-baseline gap-4 mb-10"
           style={{ borderTop: '2px solid #A17B4F', paddingTop: '1.1rem' }}
         >
           <span className="section-number">01</span>
@@ -99,9 +106,9 @@ export default function WhyChooseMe() {
             transition={{ duration: 0.65, delay: 0.2, ease: 'easeOut' }}
             className="relative"
           >
-            <div style={{ position: 'absolute', left: '-2rem', top: '10%', bottom: '10%', width: '1px', background: 'rgba(28,21,16,0.12)' }} />
+            <div style={{ position: 'absolute', left: '-2rem', top: '10%', bottom: '0', width: '1px', background: 'rgba(28,21,16,0.12)' }} />
 
-            <div className="relative overflow-hidden aspect-[4/3]">
+            <div className="overflow-hidden aspect-[4/3]">
               <img
                 src={mattHeadshot}
                 alt="Matt Njoku"
@@ -110,11 +117,20 @@ export default function WhyChooseMe() {
               />
             </div>
 
-            <div className="absolute bottom-0 left-0 p-7" style={{ background: '#A17B4F', minWidth: '210px' }}>
-              <div className="font-sans font-bold text-cream" style={{ fontSize: '2.25rem', lineHeight: 1 }}>20+</div>
-              <div className="font-serif italic text-cream" style={{ fontSize: '1rem', opacity: 0.85, marginTop: '6px', lineHeight: 1.4 }}>
-                Years of experience
-              </div>
+            <div className="grid grid-cols-2" style={{ borderTop: '2px solid #A17B4F' }}>
+              {photoStats.map((s, i) => (
+                <div
+                  key={s.label}
+                  style={{
+                    padding: '1rem 1.25rem',
+                    borderRight: i % 2 === 0 ? '1px solid rgba(28,21,16,0.1)' : 'none',
+                    borderBottom: i < 2 ? '1px solid rgba(28,21,16,0.1)' : 'none',
+                  }}
+                >
+                  <div className="font-sans font-bold text-navy" style={{ fontSize: '1.4rem', lineHeight: 1, letterSpacing: '-0.5px' }}>{s.value}</div>
+                  <div className="font-serif italic" style={{ fontSize: '0.72rem', color: '#64748B', marginTop: '5px' }}>{s.label}</div>
+                </div>
+              ))}
             </div>
           </motion.div>
 
