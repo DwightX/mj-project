@@ -1,6 +1,8 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
+import mattHeadshot from '../assets/Matt_Headshot.jpg'
+
 
 const differentiators = ['Human-First Framework', 'Real-World Scenarios', '1:1 Coaching', 'Proven Systems', 'Accountability']
 
@@ -101,7 +103,7 @@ export default function WhyChooseMe() {
 
             <div className="relative overflow-hidden aspect-[4/3]">
               <img
-                src="src/assets/Matt_Headshot.jpg"
+                src={mattHeadshot}
                 alt="Matt Njoku"
                 className="w-full h-full object-cover"
                 style={{ filter: 'brightness(0.82) sepia(0.08)' }}
