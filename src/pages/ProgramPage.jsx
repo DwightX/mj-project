@@ -245,7 +245,7 @@ export default function ProgramPage() {
                   <p className="font-serif italic text-gold-light mb-8" style={{ fontSize: '0.9rem' }}>
                     Founder Rate — Limited Availability
                   </p>
-                  <Link to="/" className="btn btn-navy">
+                  <Link to="/#booking" className="btn btn-navy">
                     Enroll Now
                   </Link>
                 </div>

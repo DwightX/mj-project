@@ -470,7 +470,7 @@ export default function AboutPage() {
                 <Link to="/program" className="btn btn-navy">
                   View the Program
                 </Link>
-                <Link to="/" className="btn btn-outline-dark">
+                <Link to="/#booking" className="btn btn-outline-dark">
                   Book a Call
                 </Link>
               </div>

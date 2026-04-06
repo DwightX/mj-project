@@ -163,9 +163,12 @@ export default function Pricing() {
               <p className="font-serif italic text-muted-dark mb-8" style={{ fontSize: '0.88rem' }}>
                 per person
               </p>
-              <Link to="/program" className="btn btn-gold">
+              <button
+                onClick={() => document.querySelector('#booking')?.scrollIntoView({ behavior: 'smooth' })}
+                className="btn btn-gold"
+              >
                 Enroll Now
-              </Link>
+              </button>
             </div>
 
             <div className="p-8">
