@@ -35,7 +35,7 @@ export default function Booking() {
             Let's Talk About Your Leadership
           </h2>
           <p className="pull-quote" style={{ opacity: 0.85, maxWidth: '520px' }}>
-            No pitch, no pressure — just a real conversation about where you are and where you want to go.
+            No pitch, no pressure. Just a real conversation about where you are and where you want to go.
           </p>
         </motion.div>
 

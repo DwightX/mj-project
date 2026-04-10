@@ -1,7 +1,7 @@
 import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
+import PainSection from '../components/PainSection'
 import WhyChooseMe from '../components/WhyChooseMe'
-import Testimonials from '../components/Testimonials'
 import Pricing from '../components/Pricing'
 import Booking from '../components/Booking'
 import Contact from '../components/Contact'
@@ -28,9 +28,10 @@ export default function HomePage() {
       <Navbar />
       <main>
         <Hero />
+        <PainSection />
+        <SectionTransition from="dark" />
         <WhyChooseMe />
         <SectionTransition from="light" />
-        <Testimonials />
         <Pricing />
         <Booking />
         <SectionTransition from="dark" />

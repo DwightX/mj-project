@@ -9,8 +9,8 @@ const differentiators = ['Human-First Framework', 'Real-World Scenarios', '1:1 C
 const photoStats = [
   { value: '20+', label: 'Years in Sales' },
   { value: '15+', label: 'Years Leading' },
-  { value: '100+', label: 'Leaders Coached' },
-  { value: '4x', label: 'Presidents Club' },
+  { value: '130+', label: 'Leaders Coached' },
+  { value: '8x', label: 'Presidents Club' },
 ]
 
 const fadeUp = {
@@ -64,7 +64,7 @@ export default function WhyChooseMe() {
               className="body-lead-dark mb-5"
               style={{ maxWidth: '520px' }}
             >
-              As an All-American collegiate athlete and team captain, I was shaped by values like hard work, discipline, confidence, coachability, and teamwork. I took that same mindset into business — rising from Sales Representative to Head of Sales and becoming the #1 leader at multiple organizations along the way.
+              Our founder, Matt Njoku, was shaped by the same values that define great teams: hard work, discipline, confidence, coachability, and teamwork. That mindset carried directly into business, rising from Sales Representative to Head of Sales and becoming the number one leader at multiple organizations along the way.
             </motion.p>
 
             <motion.p
@@ -72,7 +72,7 @@ export default function WhyChooseMe() {
               className="body-lead-dark mb-10"
               style={{ maxWidth: '520px' }}
             >
-              I built this after recognizing a pattern no one was talking about: leaders weren't failing because they lacked potential — they were failing because they lacked clarity, structure, and a real framework to lead from.
+              Leadership In Training was built after recognizing a pattern no one was talking about: leaders weren't failing because they lacked potential. They were failing because they lacked clarity, structure, and a real framework to lead from.
             </motion.p>
 
             <motion.div
@@ -119,17 +119,20 @@ export default function WhyChooseMe() {
 
             <div className="grid grid-cols-2" style={{ borderTop: '2px solid #A17B4F' }}>
               {photoStats.map((s, i) => (
-                <div
+                <motion.div
                   key={s.label}
+                  initial={{ opacity: 0, y: 14 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.45, delay: 0.5 + i * 0.1, ease: 'easeOut' }}
                   style={{
-                    padding: '1rem 1.25rem',
+                    padding: '1.1rem 1.25rem',
                     borderRight: i % 2 === 0 ? '1px solid rgba(28,21,16,0.1)' : 'none',
                     borderBottom: i < 2 ? '1px solid rgba(28,21,16,0.1)' : 'none',
                   }}
                 >
-                  <div className="font-sans font-bold text-navy" style={{ fontSize: '1.4rem', lineHeight: 1, letterSpacing: '-0.5px' }}>{s.value}</div>
-                  <div className="font-serif italic" style={{ fontSize: '0.72rem', color: '#64748B', marginTop: '5px' }}>{s.label}</div>
-                </div>
+                  <div className="font-sans font-bold text-gold-light" style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.25rem)', lineHeight: 1, letterSpacing: '-1px' }}>{s.value}</div>
+                  <div className="font-serif italic" style={{ fontSize: '0.8rem', color: '#64748B', marginTop: '6px' }}>{s.label}</div>
+                </motion.div>
               ))}
             </div>
           </motion.div>

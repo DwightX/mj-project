@@ -65,7 +65,7 @@ export default function Contact() {
 
             <p className="body-lead-dark mb-10">
               Whether you're wondering which tier is right for you, have questions about the curriculum,
-              or just want to say hello — drop me a message and I'll get back to you within 24 hours.
+              or just want to say hello, drop us a message and our team will get back to you within 24 hours.
             </p>
 
             <div className="space-y-5">
@@ -109,7 +109,7 @@ export default function Contact() {
                     Your message has been pre-filled in your email client. Just hit <strong className="text-text">Send</strong> to deliver it.
                   </p>
                   <div className="p-4 text-left space-y-2" style={{ background: 'rgba(161,123,79,0.05)', borderLeft: `3px solid ${GOLD_LIGHT}` }}>
-                    {['1. Switch to your email app', '2. Check the draft that just opened', '3. Hit Send — done!'].map((step) => (
+                    {['1. Switch to your email app', '2. Check the draft that just opened', '3. Hit Send. Done!'].map((step) => (
                       <p key={step} className="text-text-muted" style={{ fontSize: '0.82rem' }}>{step}</p>
                     ))}
                   </div>
@@ -158,7 +158,7 @@ export default function Contact() {
 
                   <div>
                     <label className="form-label">
-                      How can I help? <span className="text-gold-light">*</span>
+                      How can we help? <span className="text-gold-light">*</span>
                     </label>
                     <textarea
                       rows={5}
@@ -172,7 +172,7 @@ export default function Contact() {
                       }}
                       onFocus={(e) => (e.target.style.borderColor = GOLD_LIGHT)}
                       onBlur={(e) => (e.target.style.borderColor = errors.message ? '#ef4444' : 'rgba(28,21,16,0.15)')}
-                      {...register('message', { required: 'Please tell me how I can help' })}
+                      {...register('message', { required: 'Please tell us how we can help' })}
                     />
                     {errors.message && <p className="text-red-500 mt-1" style={{ fontSize: '0.75rem' }}>{errors.message.message}</p>}
                   </div>

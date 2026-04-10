@@ -76,11 +76,11 @@ export default function Navbar() {
 
         <Link to="/" className="flex items-center gap-2">
           <span style={{ display: 'inline-block', width: '3px', height: '18px', background: accentBar, transition: 'background 0.4s ease' }} />
-          <span style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 700, fontSize: '0.85rem', letterSpacing: '0.14em', textTransform: 'uppercase', color: logoMain, transition: 'color 0.4s ease' }}>
-            Matt
+          <span style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 700, fontSize: '0.82rem', letterSpacing: '0.14em', textTransform: 'uppercase', color: logoMain, transition: 'color 0.4s ease' }}>
+            Leadership
           </span>
-          <span style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 400, fontSize: '0.85rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: logoSub, transition: 'color 0.4s ease' }}>
-            Njoku
+          <span style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', fontWeight: 400, fontSize: '0.82rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: logoSub, transition: 'color 0.4s ease' }}>
+            In Training
           </span>
         </Link>
 

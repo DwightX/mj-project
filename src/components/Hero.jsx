@@ -9,9 +9,9 @@ const fade = (delay = 0) => ({
 
 const stats = [
   { value: '20+', label: 'Years of Sales Experience' },
-  { value: '15', label: 'Years of Sales Leadership' },
-  { value: '100+', label: 'Reps & Managers Coached' },
-  { value: '4x', label: 'Presidents Club' },
+  { value: '15+', label: 'Years of Sales Leadership' },
+  { value: '130+', label: 'Leaders Coached' },
+  { value: '8x', label: 'Presidents Club' },
 ]
 
 export default function Hero() {
@@ -30,9 +30,8 @@ export default function Hero() {
           className="font-sans font-bold text-navy mb-8"
           style={{ fontSize: 'clamp(3rem, 8vw, 8rem)', lineHeight: 0.95, letterSpacing: '-4px' }}
         >
-          Ready to Become<br />
-          the Leader Your<br />
-          <span className="text-gold-light">Team Actually Needs?</span>
+          Become the Leader<br />
+          <span className="text-gold-light">Your Team Needs.</span>
         </motion.h1>
 
         <motion.div
@@ -47,37 +46,55 @@ export default function Hero() {
           style={{ fontSize: '1rem', lineHeight: 1.8, maxWidth: '520px', color: '#64748B' }}
         >
           You need clarity. Structure. And a proven approach that actually works in the real world.
-          That's exactly what we focus on.
+          That's exactly what we focus on. We provide leadership training and development.
         </motion.p>
 
-        <motion.div {...fade(0.46)} className="flex flex-wrap gap-3">
-          <Link to="/program" className="btn btn-navy">
+        <motion.div {...fade(0.46)} className="flex flex-wrap gap-3 mb-4">
+          <button onClick={() => scrollTo('#booking')} className="btn btn-navy">
+            Apply for Beta Cohort
+          </button>
+          <Link to="/program" className="btn btn-outline-dark">
             View Program
           </Link>
-          <button onClick={() => scrollTo('#contact')} className="btn btn-outline-dark">
-            Contact
-          </button>
         </motion.div>
+
+        <motion.p {...fade(0.52)} className="font-serif italic" style={{ fontSize: '0.8rem', color: '#A17B4F' }}>
+          Limited to 10–15 Business Managers. Spots Filling Fast.
+        </motion.p>
       </div>
 
       {/* Stats strip */}
-      <motion.div
-        {...fade(0.56)}
-        className="flex flex-wrap items-center gap-x-10 gap-y-4 px-8 md:px-16 py-6"
-        style={{ borderTop: '1px solid rgba(15,23,42,0.1)' }}
+      <div
+        className="grid grid-cols-2 md:grid-cols-4"
+        style={{ borderTop: '2px solid rgba(15,23,42,0.1)' }}
       >
         {stats.map((s, i) => (
-          <div key={s.label} className="flex items-center gap-3">
-            {i > 0 && <span style={{ display: 'inline-block', width: '1px', height: '20px', background: 'rgba(15,23,42,0.1)' }} />}
-            <span className="font-sans font-bold text-navy" style={{ fontSize: '1.1rem', letterSpacing: '-0.5px' }}>
+          <motion.div
+            key={s.label}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.6 + i * 0.1, ease: 'easeOut' }}
+            className="flex flex-col justify-center px-8 md:px-10 py-6"
+            style={{
+              borderRight: i < stats.length - 1 ? '1px solid rgba(15,23,42,0.08)' : 'none',
+              borderBottom: i < 2 ? '1px solid rgba(15,23,42,0.08)' : 'none',
+            }}
+          >
+            <span
+              className="font-sans font-bold text-gold-light"
+              style={{ fontSize: 'clamp(2.25rem, 4vw, 3.25rem)', lineHeight: 1, letterSpacing: '-2px' }}
+            >
               {s.value}
             </span>
-            <span className="font-serif italic" style={{ fontSize: '0.9rem', color: '#64748B' }}>
+            <span
+              className="font-serif italic mt-2"
+              style={{ fontSize: '0.85rem', color: '#64748B', lineHeight: 1.4 }}
+            >
               {s.label}
             </span>
-          </div>
+          </motion.div>
         ))}
-      </motion.div>
+      </div>
     </section>
   )
 }
