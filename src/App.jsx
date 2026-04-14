@@ -4,6 +4,7 @@ import AboutPage from './pages/AboutPage'
 import ProgramPage from './pages/ProgramPage'
 import PrivacyPage from './pages/PrivacyPage'
 import TermsPage from './pages/TermsPage'
+import JoinTeamPage from './pages/JoinTeamPage'
 
 function RootLayout() {
   return (
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
       { path: 'program', element: <ProgramPage /> },
       { path: 'privacy', element: <PrivacyPage /> },
       { path: 'terms', element: <TermsPage /> },
+      { path: 'join', element: <JoinTeamPage /> },
       { path: '*', element: <HomePage /> },
     ],
   },

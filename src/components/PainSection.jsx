@@ -2,10 +2,10 @@ import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 
 const painPoints = [
-  'Was promoted without real training',
-  'Struggles to hold people accountable',
-  'Avoids difficult conversations',
-  'Feels like your team performance is inconsistent',
+  'You were promoted without training',
+  'You are a manager that lacks structure',
+  'Your team performance is inconsistent',
+  'Accountability conversations are avoided',
 ]
 
 const outcomes = [
@@ -13,6 +13,7 @@ const outcomes = [
   'Hold confident accountability conversations',
   'Build a repeatable coaching system',
   'Improve team output and consistency',
+  'Learn leadership strategies leveraging AI',
 ]
 
 const authority = [
@@ -42,65 +43,68 @@ export default function PainSection() {
         <div className="grid md:grid-cols-2 gap-0 mb-14">
 
           {/* Pain */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="md:pr-12"
-            style={{ borderRight: '1px solid rgba(255,255,255,0.07)' }}
-          >
-            <div className="mb-8" style={{ borderTop: '2px solid #C8956C', paddingTop: '1.1rem' }}>
-              <span className="eyebrow">This program is for you if...</span>
-            </div>
-            <ul>
-              {painPoints.map((p, i) => (
-                <motion.li
-                  key={p}
-                  initial={{ opacity: 0, x: -16 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.45, delay: 0.1 + i * 0.08 }}
-                  className="flex items-start gap-4"
-                  style={{
-                    padding: '1rem 0',
-                    borderBottom: i < painPoints.length - 1 ? '1px solid rgba(255,255,255,0.06)' : 'none',
-                  }}
-                >
-                  <span style={{ display: 'inline-block', width: '6px', height: '6px', background: '#C8956C', borderRadius: '50%', flexShrink: 0, marginTop: '9px', opacity: 0.8 }} />
-                  <span className="text-muted-dark" style={{ fontSize: '0.95rem', lineHeight: 1.7 }}>{p}</span>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
+          <div style={{ borderRight: '1px solid rgba(255,255,255,0.07)' }}>
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6 }}
+              className="md:pr-12 py-4"
+            >
+              <div className="mb-8" style={{ borderTop: '2px solid rgba(200,149,108,0.5)', paddingTop: '1.1rem' }}>
+                <span className="eyebrow">This program is for you if...</span>
+              </div>
+              <ul>
+                {painPoints.map((p, i) => (
+                  <motion.li
+                    key={p}
+                    initial={{ opacity: 0, x: -16 }}
+                    animate={inView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ duration: 0.45, delay: 0.1 + i * 0.08 }}
+                    className="flex items-start gap-4"
+                    style={{
+                      padding: '1rem 0',
+                      borderBottom: i < painPoints.length - 1 ? '1px solid rgba(255,255,255,0.06)' : 'none',
+                    }}
+                  >
+                    <span style={{ display: 'inline-block', width: '6px', height: '6px', background: '#C8956C', borderRadius: '50%', flexShrink: 0, marginTop: '9px', opacity: 0.8 }} />
+                    <span className="text-muted-dark" style={{ fontSize: '0.95rem', lineHeight: 1.7 }}>{p}</span>
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
+          </div>
 
           {/* Outcomes */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.15 }}
-            className="md:pl-12 mt-12 md:mt-0"
-          >
-            <div className="mb-8" style={{ borderTop: '2px solid rgba(200,149,108,0.35)', paddingTop: '1.1rem' }}>
-              <span className="eyebrow" style={{ color: 'rgba(200,149,108,0.65)' }}>After this program, you will:</span>
-            </div>
-            <ul>
-              {outcomes.map((o, i) => (
-                <motion.li
-                  key={o}
-                  initial={{ opacity: 0, x: 16 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.45, delay: 0.2 + i * 0.08 }}
-                  className="flex items-start gap-4"
-                  style={{
-                    padding: '1rem 0',
-                    borderBottom: i < outcomes.length - 1 ? '1px solid rgba(255,255,255,0.06)' : 'none',
-                  }}
-                >
-                  <Check />
-                  <span className="text-muted-dark" style={{ fontSize: '0.95rem', lineHeight: 1.7 }}>{o}</span>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
+          <div className="mt-12 md:mt-0">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="md:pl-12 py-4"
+            >
+              <div className="mb-8" style={{ borderTop: '2px solid rgba(200,149,108,0.35)', paddingTop: '1.1rem' }}>
+                <span className="eyebrow" style={{ color: 'rgba(200,149,108,0.65)' }}>After this program, you will:</span>
+              </div>
+              <ul>
+                {outcomes.map((o, i) => (
+                  <motion.li
+                    key={o}
+                    initial={{ opacity: 0, x: 16 }}
+                    animate={inView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ duration: 0.45, delay: 0.2 + i * 0.08 }}
+                    className="flex items-start gap-4"
+                    style={{
+                      padding: '1rem 0',
+                      borderBottom: i < outcomes.length - 1 ? '1px solid rgba(255,255,255,0.06)' : 'none',
+                    }}
+                  >
+                    <Check />
+                    <span className="text-muted-dark" style={{ fontSize: '0.95rem', lineHeight: 1.7 }}>{o}</span>
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
+          </div>
 
         </div>
 

@@ -21,8 +21,12 @@ export default function Hero() {
     <section className="relative flex flex-col bg-cream" style={{ height: '100dvh', minHeight: '600px' }}>
       <div className="flex-1 flex flex-col justify-center px-8 md:px-16">
 
+        <motion.p {...fade(0.05)} className="eyebrow mb-4">
+          Leadership Training for First-Time Managers &amp; New Business Owners
+        </motion.p>
+
         <motion.p {...fade(0.1)} className="font-serif italic text-gold-light mb-6" style={{ fontSize: '1.15rem' }}>
-          "Self Growth Never Stops"
+          "Most leadership training is generic. This is built for real-world execution."
         </motion.p>
 
         <motion.h1
@@ -74,8 +78,10 @@ export default function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.6 + i * 0.1, ease: 'easeOut' }}
-            className="flex flex-col justify-center px-8 md:px-10 py-6"
+            className="flex flex-col justify-center py-6"
             style={{
+              paddingLeft: i === 0 ? 'clamp(2rem, 4.5vw, 4rem)' : '2.5rem',
+              paddingRight: i === stats.length - 1 ? 'clamp(2rem, 4.5vw, 4rem)' : '2.5rem',
               borderRight: i < stats.length - 1 ? '1px solid rgba(15,23,42,0.08)' : 'none',
               borderBottom: i < 2 ? '1px solid rgba(15,23,42,0.08)' : 'none',
             }}

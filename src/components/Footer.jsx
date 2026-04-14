@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 const navLinks = [
   { label: 'About', to: '/about', type: 'route' },
   { label: 'Program', to: '/program', type: 'route' },
+  { label: 'Join My Team', to: '/join', type: 'route' },
   { label: 'Contact', href: '#contact', type: 'scroll' },
 ]
 
@@ -29,8 +30,8 @@ export default function Footer() {
           <div>
             <Link to="/" className="flex items-center gap-2 mb-3" style={{ textDecoration: 'none' }}>
               <span style={{ display: 'inline-block', width: '3px', height: '16px', background: '#C8956C' }} />
-              <span className="font-sans font-bold text-cream" style={{ fontSize: '0.85rem', letterSpacing: '0.14em', textTransform: 'uppercase' }}>Matt</span>
-              <span className="font-sans text-muted-dark" style={{ fontWeight: 400, fontSize: '0.85rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Njoku</span>
+              <span className="font-sans font-bold text-cream" style={{ fontSize: '0.82rem', letterSpacing: '0.14em', textTransform: 'uppercase' }}>Leadership</span>
+              <span className="font-sans text-muted-dark" style={{ fontWeight: 400, fontSize: '0.82rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>In Training</span>
             </Link>
             <p className="font-serif italic" style={{ fontSize: '0.95rem', color: '#3D4A5E', lineHeight: 1.6 }}>
               Self Growth Never Stops.
@@ -84,7 +85,7 @@ export default function Footer() {
           style={{ borderTop: '1px solid rgba(255,255,255,0.07)', fontSize: '0.75rem', color: '#3D4A5E' }}
         >
           <p className="font-serif italic" style={{ fontSize: '0.85rem' }}>
-            © {new Date().getFullYear()} Matt Njoku. All rights reserved.
+            © {new Date().getFullYear()} Leadership In Training. All rights reserved.
           </p>
           <div className="flex gap-6">
             <Link to="/privacy" className="footer-link">Privacy Policy</Link>

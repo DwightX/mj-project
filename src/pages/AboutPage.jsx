@@ -50,12 +50,98 @@ const careerSteps = [
   'Sales Representative',
   'Team Leader',
   'Director',
-  'VP of Sales',
-  'Head of Sales',
+  'VP of Sales / Head of Sales',
+  'Board Member',
 ]
 
+function CareerTimeline() {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-20px' })
+
+  return (
+    <div ref={ref}>
+      <p className="font-sans font-extrabold text-text-dim mb-8" style={{ fontSize: '0.65rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+        Career Progression
+      </p>
+      <div style={{ position: 'relative', paddingLeft: '2.25rem' }}>
+
+        {/* Animated vertical line */}
+        <motion.div
+          initial={{ scaleY: 0 }}
+          animate={inView ? { scaleY: 1 } : {}}
+          transition={{ duration: 1.1, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+          style={{
+            position: 'absolute',
+            left: '7px',
+            top: '14px',
+            width: '2px',
+            height: 'calc(100% - 28px)',
+            background: 'linear-gradient(to bottom, rgba(161,123,79,0.15), #A17B4F)',
+            transformOrigin: 'top',
+          }}
+        />
+
+        {careerSteps.map((step, i) => {
+          const isCurrent = i === careerSteps.length - 1
+          return (
+            <motion.div
+              key={step}
+              initial={{ opacity: 0, x: -14 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.45, delay: 0.25 + i * 0.14, ease: 'easeOut' }}
+              className="flex items-center gap-4"
+              style={{
+                padding: '0.9rem 0',
+                borderBottom: i < careerSteps.length - 1 ? '1px solid rgba(28,21,16,0.1)' : 'none',
+                position: 'relative',
+              }}
+            >
+              {/* Node */}
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={inView ? { scale: 1 } : {}}
+                transition={{ duration: 0.32, delay: 0.35 + i * 0.14, ease: [0.34, 1.56, 0.64, 1] }}
+                style={{
+                  position: 'absolute',
+                  left: '-2.25rem',
+                  width: isCurrent ? '16px' : '12px',
+                  height: isCurrent ? '16px' : '12px',
+                  borderRadius: '50%',
+                  background: isCurrent ? '#A17B4F' : '#FAF7F2',
+                  border: `2px solid ${isCurrent ? '#A17B4F' : 'rgba(161,123,79,0.35)'}`,
+                  boxShadow: isCurrent ? '0 0 0 4px rgba(161,123,79,0.12)' : 'none',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                }}
+              />
+
+              <span
+                style={{
+                  fontSize: '0.9rem',
+                  fontWeight: isCurrent ? 700 : 400,
+                  color: isCurrent ? '#1C2D3A' : '#718096',
+                  letterSpacing: '0.01em',
+                  lineHeight: 1.4,
+                }}
+              >
+                {step}
+              </span>
+
+              {isCurrent && (
+                <span className="font-serif italic text-gold-light ml-auto" style={{ fontSize: '0.8rem' }}>
+                  Current
+                </span>
+              )}
+            </motion.div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
 const patterns = [
-  'New leaders struggling to set clear expectations',
+  'New managers struggling to set clear expectations',
   'Inconsistent approaches to managing performance',
   'Difficulty leading top performers',
   'Over-reliance on micromanagement',
@@ -313,22 +399,7 @@ export default function AboutPage() {
                     I became the #1 leader at multiple companies I worked for. From the outside, it looked like a fast climb. But internally, I was learning some hard lessons.
                   </p>
                 </div>
-                <div>
-                  <p className="font-sans font-extrabold text-text-dim mb-6" style={{ fontSize: '0.65rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>Career Progression</p>
-                  <div className="space-y-0">
-                    {careerSteps.map((step, i) => (
-                      <div key={step} className="flex items-center gap-4" style={{ padding: '1rem 0', borderBottom: i < careerSteps.length - 1 ? '1px solid rgba(28,21,16,0.12)' : 'none' }}>
-                        <div style={{ width: '6px', height: '6px', background: i === careerSteps.length - 1 ? '#A17B4F' : 'rgba(28,21,16,0.12)', borderRadius: '50%', flexShrink: 0 }} />
-                        <span className={i === careerSteps.length - 1 ? 'font-bold text-text' : 'text-text-muted'} style={{ fontSize: '0.9rem', letterSpacing: '0.01em' }}>
-                          {step}
-                        </span>
-                        {i === careerSteps.length - 1 && (
-                          <span className="font-serif italic text-gold-light ml-auto" style={{ fontSize: '0.8rem' }}>Current</span>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <CareerTimeline />
               </div>
             </FadeSection>
           </div>
@@ -375,7 +446,7 @@ export default function AboutPage() {
                     As I continued leading and working with other managers, the same patterns kept appearing across different industries, team sizes, and career stages.
                   </p>
                   <p className="pull-quote-light mb-8">
-                    "What frustrated me wasn't that leaders were failing. It was why. There were no clear guidelines. No consistent frameworks. No alignment."
+                    "What frustrated me wasn't that managers were failing. It was why. There were no clear guidelines. No consistent frameworks. No alignment."
                   </p>
                   <p className="body-lead-dark">
                     People weren't underperforming because they lacked potential. They were underperforming because they lacked clarity.
