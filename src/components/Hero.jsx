@@ -18,7 +18,7 @@ export default function Hero() {
   const scrollTo = (id) => document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' })
 
   return (
-    <section className="relative flex flex-col bg-cream" style={{ height: '100dvh', minHeight: '600px' }}>
+    <section className="relative flex flex-col bg-cream" style={{ minHeight: '100dvh' }}>
       <div className="flex-1 flex flex-col justify-center px-8 md:px-16">
 
         <motion.p {...fade(0.05)} className="eyebrow mb-4">
