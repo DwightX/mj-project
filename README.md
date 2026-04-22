@@ -1,16 +1,53 @@
-# React + Vite
+# Leadership In Training — Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Official website for **Matt Njoku** and the **LIT Program**, a leadership development course for first-time managers and new business owners.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Client
 
-## React Compiler
+**Matt Njoku** — Leadership Coach & Consultant  
+- 20+ years in sales, 15+ years in leadership
+- Founder of the LIT (Leadership In Training) Program
+- Website: [leadershipintraining.com](https://leadershipintraining.com)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| Layer | Technology |
+|---|---|
+| Framework | [React 18](https://react.dev) |
+| Build Tool | [Vite](https://vite.dev) |
+| Routing | [React Router v6](https://reactrouter.com) |
+| Styling | [Tailwind CSS v4](https://tailwindcss.com) |
+| Animations | [Framer Motion](https://www.framer.com/motion/) |
+| Forms | [React Hook Form](https://react-hook-form.com) |
+| Scheduling | [Calendly](https://calendly.com) (inline embed) |
+| Fonts | Plus Jakarta Sans, Libre Baskerville (Google Fonts) |
+
+---
+
+## Pages
+
+- `/` — Home (Hero, Pain/Outcomes, Why Choose Us, Pricing/Beta Cohort, Booking, Contact)
+- `/about` — About Matt & the story behind LIT
+- `/program` — Full program details and module breakdown
+- `/join` — Join the LIT team
+- `/privacy` — Privacy Policy
+- `/terms` — Terms of Service
+
+---
+
+## Getting Started
+
+```bash
+npm install
+npm run dev
+```
+
+Build for production:
+
+```bash
+npm run build
+```
