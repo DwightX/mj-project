@@ -22,7 +22,7 @@ export default function Hero() {
       <div className="flex-1 flex flex-col justify-center px-8 md:px-16">
 
         <motion.p {...fade(0.05)} className="eyebrow mb-4">
-          Leadership Training for First-Time Managers &amp; New Business Owners
+          LEADERSHIP TRAINING FOR CURRENT AND ASPIRING LEADERS & BUSINESS OWNERS
         </motion.p>
 
         <motion.p {...fade(0.1)} className="font-serif italic text-gold-light mb-6" style={{ fontSize: '1.15rem' }}>
