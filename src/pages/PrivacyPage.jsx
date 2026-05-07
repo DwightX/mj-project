@@ -72,7 +72,7 @@ const sections = [
     title: 'Contact',
     body: [
       'If you have any questions about this Privacy Policy or how your information is handled, please reach out:',
-      'Matt Njoku\nleadershipintraining.com\nmatt@leadershipintraining.com\nNew York, NY',
+      'Matt Njoku\nleadershipintraining.com\nmatt@leadershipintraining.com\nNorth Carolina',
     ],
   },
 ]

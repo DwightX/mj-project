@@ -67,8 +67,8 @@ const sections = [
   {
     title: 'Governing Law',
     body: [
-      'These Terms of Service shall be governed by and construed in accordance with the laws of the State of New York, without regard to its conflict of law provisions.',
-      'Any disputes arising under these Terms shall be resolved in the courts of competent jurisdiction located in New York, NY.',
+      'These Terms of Service shall be governed by and construed in accordance with the laws of the State of North Carolina, without regard to its conflict of law provisions.',
+      'Any disputes arising under these Terms shall be resolved in the courts of competent jurisdiction located in North Carolina.',
     ],
   },
   {
@@ -82,7 +82,7 @@ const sections = [
     title: 'Contact',
     body: [
       'For questions about these Terms of Service, please contact:',
-      'Matt Njoku\nleadershipintraining.com\nmatt@leadershipintraining.com\nNew York, NY',
+      'Matt Njoku\nleadershipintraining.com\nmatt@leadershipintraining.com\nNorth Carolina',
     ],
   },
 ]

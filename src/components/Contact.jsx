@@ -22,7 +22,7 @@ export default function Contact() {
 
   const contactItems = [
     { icon: <Mail size={18} color={GOLD_LIGHT} />, label: 'Email', value: 'matt@leadershipintraining.com' },
-    { icon: <MapPin size={18} color={GOLD_LIGHT} />, label: 'Based in', value: 'New York, NY (coaching worldwide)' },
+    { icon: <MapPin size={18} color={GOLD_LIGHT} />, label: 'Based in', value: 'North Carolina (coaching worldwide)' },
     { icon: <Clock size={18} color={GOLD_LIGHT} />, label: 'Response time', value: 'Within 24 business hours' },
   ]
 
